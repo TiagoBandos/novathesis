@@ -8,18 +8,27 @@
 
 \typeout{NT FILE chapter5.tex}%
 
-\chapter{Lorem Ipsum}
-\label{cha:lorem_ipsum}
+\chapter{An approach to automate the modeling class diagrams}
+\label{cha:approachAutomateModeling}
+This chapter describes and explains the decisions behind the prototype developed to automate the modeling class diagram.
 
-\lipsum[1-100]
-\lipsum[1-100]
-\lipsum[1-100]
-% \lipsum[1-100]
-% \lipsum[1-700]
-% \lipsum[1-700]
-% \lipsum[1-700]
-% \lipsum[1-700]
-% \lipsum[1-700]
-% \lipsum[1-700]
-% \lipsum[1-700]
-% \lipsum[1-700]
+\section{Prompt technique and Model used}
+Looking at the results from the experiment in the section~ \ref{sec:ExperimentPromptModel}, we decided to use the \textbf{Claude} models and the \textbf{Chain of Thought} prompt technique.
+Since in the experiment, we only used the available web interface we had to adapt the prompt to API calls. We divided the prompt into two parts, the first part is the system prompt, which contains the instructions for the model, and the second part is the user prompt, which contains the input data for the model.
+Also because we are using the API, we had to be more aware of the token limit and the cost of the API calls, so we had to be more concise in the prompt so we decided to remove the example and give a more generic example of PlantUML syntax.
+We used markdown format in the prompt because it can improve the result quality \cite{he2024doespromptformattingimpact}, and for the human to easily read and edit it.
+
+To understand which is the best Anthropic model for our use case, we conduct an experiment with the different models available in the API. We set the temperature to 0.2 to reduce randomness and the max tokens to 2000 since we want to ensure that each API call price does not exceed our budget .
+
+\section{Retrieval Augmented Generation System implemented}
+
+\section{Self-improve approach}
+cenas 
+\section{Agent implementation}
+
+\section{Challenges}
+
+\section{Pratical Demonstration}
+
+\section{Summary}
+

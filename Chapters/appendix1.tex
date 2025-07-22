@@ -8,49 +8,57 @@
 
 \typeout{NT FILE appendix1.tex}%
 
-\chapter{\emph{NOVAthesis} covers showcase}
-\label{app:covers_showcase}
+\appendix
+\chapter{Papers selected during the systematic mapping study}
+\label{app:papers}
+\renewcommand{\arraystretch}{0.5} % Reduces vertical spacing between rows
+\setlength{\tabcolsep}{4pt}
 
-This Appendix shows examples of covers for some of the supported Schools.  When the Schools have very similar covers (e.g., all the schools from Universidade do Minho), just one cover is shown.  If the covers for MSc dissertations and PhD  thesis are considerable different (e.g., for FCT-NOVA and UMinho), then both are shown.
+\begin{longtable}{p{5cm} p{7.5cm} p{2.5cm}}  
+  
 
-\newcommand{\showcasecoversize}{0.3\textwidth}
-\newcommand*{\myhfill}{}
-\newcommand{\myincludeimage}[1]{%
-    \myhfill%
-    \defifundef{\mycvbox}{\newsavebox}%
-    \savebox{\mycvbox}{\includegraphics[width=\showcasecoversize]{#1}}%
-    \defifundef{\mycvboxht}{\newlength}%
-    \setlength{\mycvboxht}{\dimexpr \showcasecoversize*\paperheight/\paperwidth}%
-    \rule{0pt}{1.1\mycvboxht}%
-    \setlength{\fboxsep}{0pt}%
-    \fbox{\includegraphics[width=\showcasecoversize]{#1}}%
-    \renewcommand*{\myhfill}{\hfill}%
-}
+    \toprule
+    \textbf{Authors} & \textbf{Title} & \textbf{Reference} \\ 
+    \midrule
+    \endfirsthead
 
-% \noindent\forcsvlist{\myincludeimage}{%
-%   cover-nova-fct-msc,
-%   cover-nova-fct-phd,
-%   cover-nova-ims-phd,
-%   %
-%   cover-uminho-ee-phd,
-%   cover-uminho-ee-msc,
-%   cover-other-esep-phd,
-%   %
-%   cover-nova-fcsh-phd,
-%   cover-nova-ensp-phd,
-%   cover-iscteiul-eta-phd,
-%   %
-%   cover-ulisboa-fc-phd,
-%   cover-ulisboa-ist-phd,
-%   cover-ulht-deisi-msc,
-%   %
-%   cover-ipl-isel-msc,
-%   cover-ips-ests-msc,
-%   cover-other-mscgt-msc%
-% }
+    \multicolumn{3}{c}{\textbf{(Continued from previous page)}} \\
+    \toprule
+    \textbf{Authors} & \textbf{Title} & \textbf{Reference} \\ 
+    \midrule
+    \endhead
 
-\lipsum[1-20]
-
-\section{A section here}
-
-\lipsum[1-20]
+    % Body of the table
+    Daniele De Bari, Giacomo Garaccione, Riccardo Coppola, Marco Torchiano, Luca Ardito & Evaluating Large Language Models in Exercises of UML Class Diagram Modeling & \cite{1deBari2024}\\ 
+    \midrule
+    Zakaria Babaalla, Abdeslam Jakimi, Mohamed Oualla, Rachid Saadane, Abdellah Chehri & Towards an Automatic Extracting UML Class Diagram from System's Textual Specification & \cite{2babaalla2024}\\ 
+    \midrule
+    Aakash Ahmad, Muhammad Waseem, Peng Liang, Mahdi Fahmideh, Mst Shamima Aktar, Tommi Mikkonen & Towards Human-Bot Collaborative Software Architecting with ChatGPT & \cite{3ahmad2023} \\ 
+    \midrule
+    Munima Jahan, Mohammad Mahdi Hassan, Reza Golpayegani, Golshid Ranjbaran, Chanchal Roy, Banani Roy, Kevin Schneider & Automated Derivation of UML Sequence Diagrams from User Stories: Unleashing the Power of Generative AI vs a Rule-Based Approach & \cite{4jahan2024} \\ 
+    \midrule
+    A. Ferrari, S. Abualhaija, C. Arora & Model Generation with LLMs: From Requirements to UML Sequence Diagrams & \cite{5ferrari2024}\\ 
+    \midrule
+    B. Wang, C. Wang, P. Liang, B. Li, C. Zeng & How LLMs Aid in UML Modeling: An Exploratory Study with Novice Analysts & \cite{6wang2024}\\ 
+    \midrule
+    T. Eisenreich, S. Speth, S. Wagner & From Requirements to Architecture: An AI-Based Journey to Semi-Automatically Generate Software Architectures & \cite{7eisenreich2024}\\ 
+    \midrule
+    Z. Wang, C. Feng, L. Liu, G. Jiao, P. Ye & The Application of LLMs in the Analysis and Modeling of Software Requirements & \cite{8z_wang2024}\\ 
+    \midrule
+    K. Ruan, X. Chen, Z. Jin & Requirements Modeling Aided by ChatGPT: An Experience in Embedded Systems & \cite{9ruan2023}\\ 
+    \midrule
+    K. Chen, Y. Yang, B. Chen, J. A. Hernández López, G. Mussbacher, D. Varró & Automated Domain Modeling with Large Language Models: A Comparative Study & \cite{10chen2023} \\ 
+    \midrule
+    M. A. Omar & Measurement of ChatGPT Performance in Mapping Natural Language Specification into an Entity Relationship Diagram & \cite{11omar2023}\\ 
+    \midrule
+    Y. Li, J. Keung, X. Ma, C. Y. Chong, J. Zhang, Y. Liao & LLM-Based Class Diagram Derivation from User Stories with Chain-of-Thought Promptings & \cite{12li2024}\\ 
+    \midrule
+    P. Ardimento, M. L. Bernardi, M. Cimitile & Teaching UML using a RAG-based LLM & \cite{13benardi2024} \\ 
+    \midrule
+    M. B. Chaaben, L. Burgueño, H. Sahraoui & Towards using Few-Shot Prompt Learning for Automating Model Completion & \cite{14chaaben2023}\\ 
+    \midrule
+    L. Naimi, E. M. Bouziane, M. Manaouch, A. Jakimi & A new approach for automatic test case generation from use case diagram using LLMs and prompt engineering & \cite{15Naimi} \\  
+    \bottomrule
+    \\
+    \caption{List of selected papers} \label{tab:papers} 
+\end{longtable}

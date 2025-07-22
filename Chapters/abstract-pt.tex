@@ -8,29 +8,9 @@
 
 \typeout{NT FILE abstract-pt.tex}%
 
-Independentemente da língua em que a dissertação está escrita, geralmente esta contém pelo menos dois resumos: um resumo na mesma língua do texto principal e outro resumo numa outra língua.
 
-A ordem dos resumos varia de acordo com a escola. Se a sua escola tiver regulamentos específicos sobre a ordem dos resumos, o template (\LaTeX) \gls{novathesis} irá respeitá-los. Caso contrário, a regra padrão no template \gls{novathesis} é ter em primeiro lugar o resumo \emph{no mesmo idioma do texto principal} e depois o resumo \emph{no outro idioma}. Por exemplo, se a dissertação for escrita em português, a ordem dos resumos será primeiro o português e depois o inglês, seguido do texto principal em português. Se a dissertação for escrita em inglês, a ordem dos resumos será primeiro em inglês e depois em português, seguida do texto principal em inglês.
-%
-No entanto, esse pedido pode ser personalizado adicionando um dos seguintes ao arquivo \verb+5_packages.tex+.
 
-\begin{verbatim}
-    \abstractorder(<MAIN_LANG>):={<LANG_1>,...,<LANG_N>}
-\end{verbatim}
-
-Por exemplo, para um documento escrito em Alemão com resumos em Alemão, Inglês e Italiano (por esta ordem), pode usar-se:
-\begin{verbatim}
-    \ntsetup{abstractorder={de={de,en,it}}}
-\end{verbatim}
-
-Relativamente ao seu conteúdo, os resumos não devem ultrapassar uma página e frequentemente tentam responder às seguintes questões (é imprescindível a adaptação às práticas habituais da sua área científica):
-
-\begin{enumerate}
-  \item Qual é o problema?
-  \item Porque é que é um problema interessante/desafiante?
-  \item Qual é a proposta de abordagem/solução?
-  \item Quais são as consequências/resultados da solução proposta?
-\end{enumerate}
+A modelação de software exige uma compreensão aprofundada do domínio da solução, bem como das especificações de requisitos. Os modelos de design resultantes servem como “blueprints” para a fase de implementação, definindo a arquitetura do sistema, os requisitos de hardware e software, e a estrutura global do sistema. Para automatizar a criação destes modelos de design, foram propostas várias abordagens ao longo dos anos, incluindo estratégias baseadas em desenvolvimento orientado por modelos, regras e padrões linguísticos, sistemas baseados em regras e técnicas estatísticas ou de aprendizagem automática. Mais recentemente, os Large Language Models (LLMs) ganharam destaque. Embora estes modelos apresentem frequentemente resultados promissores, carecem muitas vezes de consciência contextual suficiente — um fator essencial para transformar corretamente as especificações de requisitos em modelos, como por exemplo diagramas de classes. Esta dissertação irá recorrer a técnicas de prompt engineering e a uma framework de Retrieval-Augmented Generation para reforçar a consciência contextual e a precisão dos LLMs na geração de modelos a partir de uma especificação de requisitos. Como primeiro passo, foi realizado um estudo de mapeamento sistemático para compreender melhor o estado atual do conhecimento. Com base nessas conclusões, começámos a experimentar várias técnicas de prompt engineering. O nosso objetivo é desenvolver um método aprimorado que aprofunde a compreensão contextual dos LLMs e facilite a criação automática de modelos de design a partir de especificações de requisitos.
 
 % E agora vamos fazer um teste com uma quebra de linha no hífen a ver se a \LaTeX\ duplica o hífen na linha seguinte se usarmos \verb+"-+… em vez de \verb+-+.
 %
@@ -43,9 +23,11 @@ Relativamente ao seu conteúdo, os resumos não devem ultrapassar uma página e 
 % Palavra-chave 1, Palavra-chave 2, Palavra-chave 3, Palavra-chave 4
 % \end{keywords}
 \keywords{
-  Primeira palavra-chave \and
-  Outra palavra-chave \and
-  Mais uma palavra-chave \and
-  A última palavra-chave
+  LLM \and
+  Modelação de requisitos \and
+  Retrieval-Augmented Generation\and
+  diagramas UML\and 
+  GAI
 }
+
 % to add an extra black line

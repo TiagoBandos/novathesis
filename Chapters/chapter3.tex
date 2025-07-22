@@ -15,289 +15,388 @@
 \makeatother
 
 
-\chapter{A Short \LaTeX\ Tutorial with Examples}
-\label{cha:a_short_latex_tutorial_with_examples}
+\chapter{State of the Art}
+\label{cha:state_of_the_art}
 
-This Chapter aims at exemplifying how to do common stuff with \LaTeX. We also show some stuff which is not that common! ;)
+This dissertation explores the automation of requirements modelling, with the systematic mapping study being useful to identify the state of art and understand possible improvement to implement. The systematic mapping study provides an overview of existing knowledge on the topic while uncovering gaps that require further exploration \cite{22BPetersen2008}. It starts with the specification of the research questions and the implementation of the research methodology. Then, a search strategy is defined to detect relevant literature, that in turn will be submitted to an inclusion and exclusion criteria and a quality assessment to select the final primary studies. Lastly, data from the selected studies is extracted and analysed to assess the existing evidence regarding the topics of the previously defined research questions. The results offer insight into the advancements and limitations in the field, giving a better understanding of possible improvements in automations of requirements modelling. This chapter outlines the steps taken to conduct the systematic mapping study and elaborates on the key findings that inform this dissertation.
 
-Please, use these examples as a starting point, but you should always consider using the \emph{Big Oracle} (aka, \href{http://www.google.com}{Google}, your best friend) to search for additional information or al-ternative ways for achieving similar results.
+\section{Research Methodology}
+\label{sec:research_methodology}
 
-\section{Document Structure} % (fold)
-\label{sec:document_structure}
+The overall approach of the research methodology was to analyze current approaches used to automate requirements modeling and design modeling, with a particular focus on methods utilizing LLMs. The goal is to explore the capabilities and challenges of leveraging LLMs in transforming requirements into design models, as well as their role in automation within the software development modeling process. 
 
-% section document_structure (end)
+To achieve this, we conducted a systematic mapping study methodology compose by three key stages: planning, conducting, and reporting. The planning stage involved establishing research questions, defining search and study selection strategies, performing a quality assessment of studies, and developing a data collection and extraction strategy. In the conducting stage, we apply the plan prepared and analyse the preliminary results obtained from the execution of the search strategy. Finally, the reporting stage included a thorough analysis and discussion of the findings.
+
+\subsection{Planning Stage}
+\label{sub:planning_stage}
+
+The first phase of the systematic mapping study, comprises five main activities defining research questions, formulating a search strategy, establishing a study selection approach, developing a quality assessment strategy, and determining data collection and extraction methods.
+
+\paragraph{Research Questions}
+The objective of this study is to provide a comprehensive overview of the existing approaches for automating design modeling. Consequently, the research questions were designed to address key aspects of automating design modeling using LLMs and GAI. These questions aim to offer a structured understanding of the state-of-the-art in this domain while identifying gaps and opportunities for future improvements.
+In the Table~\ref{tab:research_questions}, the research questions and the motivation behind are presented.	
+\begin{table}[htb]
+  \centering
+  \begin{tabular}{p{6cm} p{8cm}}
+    \toprule
+    \textbf{Research Questions} & \textbf{Motivation} \\ 
+    \midrule
+    RQ1. How have LLMs been used to derive design models from requirements? & To investigate how LLMs are applied to transform textual requirements into design models, providing insight into practical applications. \\ 
+    \addlinespace
+    \midrule
+    RQ2. What are the strengths and limitations of using LLMs in this context? (deriving design models from requirements) & To gain an overview of the potential benefits and challenges of using LLMs. \\ 
+    \addlinespace
+    \midrule
+    RQ3. What GAI tools have been applied for producing class diagrams and object-oriented artifacts in software development? & To identify which GAI models are most commonly used. \\ 
+    \addlinespace
+    \midrule
+    RQ4. What are the key approaches in automating functional requirements into design models using AI? & To discover methodologies that leverage AI to automate the process of requirement modeling. \\ 
+    \bottomrule
+  \end{tabular}
+  \caption{Research Questions}
+  \label{tab:research_questions} % Label for referencing the table
+  \end{table}
+  
+
+\paragraph{Search Strategy}
+The search strategy involved identifying primary studies using an automatic search method. The search string was constructed with three key elements,examples of LLMs widely used in the industry, terms conveying the concept of requirement modeling, and synonyms for methodologies.The search string is presented in Table~\ref{tab:search_keywords}.
+
+\begin{table}[htb]
+  \centering
+  \small
+  \begin{tabular}{p{6cm} p{8cm}}
+    \toprule
+    \textbf{Concept} & \textbf{Keywords} \\ 
+    \midrule
+    Large Language Models & ("Large Language Models" OR "LLMs" OR "ChatGPT" OR "LLAMA" OR "Gemini") \\ 
+    \addlinespace
+    Requirement Modeling & ("design model*" OR "requirement model*" OR "class diagram" OR "requirement specification" OR "architecture model" OR "component diagram" OR "sequence diagram") \\ 
+    \addlinespace
+    Related terms for methodologies & ("approach" OR "method" OR "technique" OR "tool" OR "process") \\ 
+    \bottomrule
+  \end{tabular}
+  \caption{Search keywords for requirement modeling} % Main caption
+  \label{tab:search_keywords} % For referencing the table elsewhere
+\end{table}
+The search string was run as a query on IEEE Xplore \cite{ieeeXplore} and ACM Digital Library \cite{acmLibrary}. These libraries were selected for their comprehensive collections of peer-reviewed publications in software engineering and their user-friendly interfaces that allow bulk downloading of search results in CSV format.
+Besides the search question we implemented a filter to only show papers from 2019 and foward because we believe that the most relevant papers are the most recent ones and do to the limit time-line we had to conduct this systematic mapping study.
+
+\paragraph{Study Selection Strategy}
+Studies identified through automatic searches were evaluated using inclusion and exclusion criteria to ensure relevance to the research questions. The evaluation was conducted in two iterations.
+The inclusion and exclusion criteria used in the study selection process are presented in Table~\ref{tab:criteria}. Given the prevelance of English in the scientific community, we decided to only select papers written in English. We also excluded duplicate papers, informal literature, and secondary studies to ensure the quality and relevance of the selected studies.
+The study selection process was conducted in two iterations. In the first iteration, the title and abstract of each study were reviewed, selecting those that met all inclusion criteria while discarding those that matched any exclusion criterion. In the second iteration, the full text of the pre-selected studies was analyzed, ensuring that only those fully aligning with the inclusion criteria were retained as final primary studies.
+
+\begin{table}[htb]
+\centering
+\small
+\renewcommand{\arraystretch}{0.9} % reduces vertical spacing between rows
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{6cm} p{8cm}}
+  \toprule
+  \textbf{ID} & \textbf{Inclusion Criteria} \\ 
+  \midrule
+  IC1 & Papers that answer at least one the research questions. \\ 
+  \midrule
+  IC2 & Peer-reviewed papers from journals, conferences, and workshops. \\ 
+  \toprule
+  \textbf{} & \textbf{Exclusion Criteria}  \\  
+  \midrule
+  EC1 & Papers not written in English. \\ 
+  \midrule
+  EC2 & Duplicate papers, such as short and long versions of the same study. \\ 
+  \midrule
+  EC3 & Informal literature (e.g., slide shows, conference reviews, informal reports), secondary studies (e.g., reviews, surveys), and studies without practical applications. \\ 
+  \bottomrule
+\end{tabular}
+\caption{Inclusion and exclusion criteria}
+\label{tab:criteria}
+\end{table}
+\vspace{1em}
+
+\paragraph{Data Collection and Extraction}
+To simultaneously collect all the information needed to answer the research questions and manage the data that was extracted, we created a spreadsheet to record the content of each selected study. This way, we can ensure that all selected papers are subjected to the same extraction criteria.The spreadsheet can be accessed through the following \href{https://docs.google.com/spreadsheets/d/12ZrNSq5YJwCggml846wV1xuJMiU4SFJl/edit?usp=sharing&ouid=110131575331589669328&rtpof=true&sd=true}{link}.
+
+\subsection{Conducting stage}
+The process to identify and collect the studies that provide answers to our research questions was conducted by following the steps of the Planning Stage \ref{sub:planning_stage}. As mentioned previously, initially, was performed the automatic search by  using a predefined search string on the IEEE Xplorer and ACM Digital Library, yielding a total of 419 papers from ACM and 591 from IEEE. 
+Next, we read and analyzed the titles and abstracts of each potential paper to apply the first iteration of inclusion and exclusion criteria, narrowing the selection down to 32 papers. These 32 papers where then read in full during second iteration, leading to the final 15 papers. Lastly, we validated and extracted the data that answered the research questions from all the selected papers. The figure ~\ref{fig:study_process} summarizes the process and the table of the papers selected is presented in appendix ~\ref{app:papers}.
+
+\begin{figure}[htb]
+  \centering
+
+  \begin{tikzpicture}[node distance=2cm]
+
+      \node (start) [startstop] {Start: Search Strategy};
+      \node (search) [process, below of=start] {Automatic Search (IEEE Xplorer + ACM Digital Library)};
+      \node (screening1) [process, below of=search] {Title \& Abstract Screening (Apply Inclusion/Exclusion Criteria)};
+      \node (narrow) [process, below of=screening1] {Filtered Papers: 32};
+      \node (screening2) [process, below of=narrow] {Full-Text Reading (Further Filtering)};
+      \node (final) [process, below of=screening2] {Final Selection: 15 Papers};
+      \node (extraction) [process, below of=final] {Data Extraction and Validation};
+      \node (end) [startstop, below of=extraction] {End: Research Questions Answered};
+
+      \draw [arrow] (start) -- (search);
+      \draw [arrow] (search) -- (screening1);
+      \draw [arrow] (screening1) -- (narrow);
+      \draw [arrow] (narrow) -- (screening2);
+      \draw [arrow] (screening2) -- (final);
+      \draw [arrow] (final) -- (extraction);
+      \draw [arrow] (extraction) -- (end);
+
+  \end{tikzpicture}
+  \caption{Process of Identifying and Collecting Studies}
+  \label{fig:study_process}
+\end{figure}
+  
+
+\subsection{Discussion of the results}
+In the following subsections, we answer to each research questions, based on the analysis of the data extracted from the selected studies.
+
+\textbf{RQ1: How have LLMs been used to derive design models from requirements?}\\
+
+Through the analysed papers, several methods were identified in which LLMs have been employed to derive design models from requirements. 
+Direct code generation is one of the most used methods, studies such De Bari et al. \cite{1deBari2024}, Jahan et al. \cite{4jahan2024}, and Ferrari et al. \cite{5ferrari2024} used ChatGPT to generate PlantUML \cite{plantuml} code directly from requirements and user stories.
+Babaalla et al. \cite{2babaalla2024} employed multiple models, including GPT-2, BERT and LLaMA-2, to transform textual tokens into vector representations. Basically encoding entities such as classes attribute and relationships. This vectors are then inputted into layers trained on bidirectional Long-short-term memory (LTSM) recurrent neural networks and tree structures.
+Eisenreich et al. \cite{7eisenreich2024} proposed utilization of LLMs to generate domain models, scenarios and architecture candidates, incorporating iterative human interactions to refine the outputs and evaluate architecture options. 
+Requirements elements extraction is also used by Ruan et al. \cite{9ruan2023}, Omar et al. \cite{11omar2023} and Li et al \cite{12li2024}. 
+The proposed platform “ Wisdom Requirement Communication” presented by Wang el al. \cite{8z_wang2024} also does requirement elements extraction. Also, using techniques such as tokenization and part-of-speech tagging to pre process the requirements,  it uses GLM 4-LLM to conduct advanced requirements analysis, identifying actors, use cases, and processes which are then converted into Mermaid format for visualization.
+Bernadi et al. \cite{13benardi2024} combined LLaMA models with a Retrieval Augmented Generation (RAG) system to analyze and enhance UML diagrams, leveraging domain-knowledge to improve feedback.
+Chaaben et al. \cite{14chaaben2023} applied LLMs to complete domain models by transforming incomplete models into textual representation using semantic mapping. These representations were use to generate suggested modelling elements missing, which were refined by applying a frequency-based ranking.
 
 
-\section{Dealing with Bibliography} % (fold)
-\label{sec:dealing_with_bibliography}
+\begin{table}[htb]
+\centering
+\small
+\renewcommand{\arraystretch}{0.9} % reduces vertical spacing between rows
+\setlength{\tabcolsep}{4pt}
+\label{tab:llm-methods}
+\begin{tabular}{p{3cm} p{2cm} p{5cm} p{3.5cm}}
+\toprule
+\textbf{Method/Approach} & \textbf{Studies} & \textbf{Techniques and Models employed} & \textbf{Output/Design Model Derived} \\
+\midrule
+Direct Code Generation &  \cite{1deBari2024, 4jahan2024,5ferrari2024} & ChatGPT is used to directly generate PlantUML code from requirements and user stories. & PlantUML code representing design models. \\
+\midrule
+Vector-Based Representation \& LSTM Analysis & \cite{2babaalla2024} & GPT-2, BERT, and LLaMA-2 transform textual tokens into vector representations; these vectors are then fed into bidirectional LSTM networks and tree structures. & Encoded entities (classes, attributes, relationships) that inform design models. \\
+\midrule
+Iterative Domain Model Generation & \cite{7eisenreich2024} & LLMs generate initial domain models, scenarios, and architecture candidates, refined through iterative human interactions. & Refined domain models, scenarios, and architecture candidates. \\
+\midrule
+Requirements Elements Extraction & \cite{9ruan2023,11omar2023,12li2024} & LLM-based extraction techniques to identify key requirement elements. & Identification of actors, use cases, and processes from requirements. \\
+\midrule
+Advanced Requirements Analysis & \cite{8z_wang2024}& Utilizes tokenization, part-of-speech tagging, and GLM 4-LLM for advanced requirements analysis; outputs are converted into Mermaid format for visualization. & Visual representations (via Mermaid) of actors, use cases, and processes. \\
+\midrule
+UML Diagram Enhancement via RAG & \cite{13benardi2024} & Combines LLaMA models with a Retrieval Augmented Generation (RAG) system to integrate domain knowledge and enhance UML diagrams. & Enhanced UML diagrams with improved feedback based on domain knowledge. \\
+\midrule
+Domain Model Completion & \cite{14chaaben2023} & Transforms incomplete domain models into textual representations using semantic mapping; suggests missing modeling elements refined by frequency-based ranking. & Completed domain models with additional suggested modeling elements. \\
+\bottomrule
+\end{tabular}
+\caption{RQ1:Methods for Deriving Design Models from Requirements Using LLMs}
+\end{table}
 
-Citing something online~\cite{wiki:shuntingyard,flex,bison}.
+\textbf{RQ2: What are the strengths and limitations of using LLMs in this context?}\\
 
-% section dealing_with_bibliography (end)
+The strengths of using LLMs in this context identify are automation of design process, by allowing to generate UML diagrams, design models, architectural components and evaluation scenarios from textual requirements it reduces manual effort  \cite{1deBari2024,4jahan2024,7eisenreich2024,3ahmad2023}.
+Using prompt-based techniques enhanced efficiency of creation of design artifacts \cite{12li2024,14chaaben2023}.
+General-purpose LLMs like GPT-4 Chat-3.5 and LLaMA can be applied across various domains, making them versatile for software modelling task \cite{7eisenreich2024,8z_wang2024}
+LLMs can produce code in formats like PlantUML and Mermaid can produce code in formats like PlantUML and Mermaid which give visualization support \cite{7eisenreich2024,11omar2023}.
+LLMs gives flexibility in model generation by having the ability to extract and represent complex entities, attributes and relationships from natural language \cite{2babaalla2024,9ruan2023}.
+
+On the other hand, LLMs show limitation such as semantic and domain knowledge gaps \cite{5ferrari2024,11omar2023,1deBari2024,8z_wang2024}.
+Also, LLMs show issues with relationships, often incorrectly identifying and modelling relationships between entities \cite{2babaalla2024,6wang2024} or omitting key elements or misrepresenting it. \cite{4jahan2024,14chaaben2023}.
+LLMs tend to incompletely handle requirements, due to complex or incomplete input conditions \cite{5ferrari2024,7eisenreich2024} or ambiguities and inconsistencies in textual requirements \cite{9ruan2023,14chaaben2023}.
+The outputs are highly dependent on the quality of prompts are require expert guidance make harder the possibility of fully automated processes \cite{6wang2024,13benardi2024}.
+Another limitation is the variability in the performance, as the results depend on factors such as input formats, prompting techniques, and the specific LLM versions being used.This leads to inconsistent performance in generations of modelling features like abstract classes or precise architectural patterns \cite{14chaaben2023,2babaalla2024,3ahmad2023}.Additionally, the performance is strongly influenced by the training of each model \cite{15Naimi}.
+The effectiveness of LLMs depends heavily on the availability and quality of external knowledge bases and example is the approach Bernardi et al. that improve the quality of the model generated by using RAG techniques \cite{13benardi2024}.
+\begin{table}[htb]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{0.9} % reduces vertical spacing between rows
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{p{5cm}p{8.5cm}}
+  \toprule
+  \textbf{Strengths} & \textbf{Key References} \\
+  \midrule
+  \textbf{Automation of design process} & 
+  Reduces manual effort by generating UML diagrams, architectural components, and evaluation scenarios from textual requirements 
+  \cite{1deBari2024,4jahan2024,7eisenreich2024,3ahmad2023}. \\[6pt]
+  \midrule
+  \textbf{Improved efficiency via prompt-based techniques} & 
+  Enhances speed of creating design artifacts 
+  \cite{12li2024,14chaaben2023}. \\[6pt]
+  \midrule
+  \textbf{General-purpose applicability} & 
+  LLMs (e.g., GPT-4, ChatGPT-3.5, LLaMA) are versatile across multiple domains 
+  \cite{7eisenreich2024,8z_wang2024}. \\[6pt]
+  \midrule
+  \textbf{Visualization support} & 
+  LLMs can produce code in PlantUML or Mermaid formats for diagram generation 
+  \cite{7eisenreich2024,11omar2023}. \\[6pt]
+  \midrule
+  \textbf{Flexibility in model generation} & 
+  Can extract and represent complex entities, attributes, and relationships from text 
+  \cite{2babaalla2024,9ruan2023}. \\
+  \bottomrule
+  \end{tabular}
+  \label{tab:llm_strengths}
+  \caption{RQ2: Strengths of using LLMs in software modeling}
+\end{table}
+
+\begin{table}[htb]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{0.9} % reduces vertical spacing between rows
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{p{5cm}p{8.5cm}}
+  \toprule
+  \textbf{Limitations} & \textbf{Key References} \\
+  \midrule
+  \textbf{Semantic and domain knowledge gaps} & 
+  May misunderstand complex domain-specific information 
+  \cite{5ferrari2024,11omar2023,1deBari2024,8z_wang2024}. \\[6pt]
+  \midrule
+  \textbf{Incorrect or omitted relationships} & 
+  Often misidentifies or omits key relationships among entities 
+  \cite{2babaalla2024,6wang2024,4jahan2024,14chaaben2023}. \\[6pt]
+  \midrule
+  \textbf{Incomplete handling of requirements} & 
+  Struggles with complex, ambiguous, or inconsistent textual requirements 
+  \cite{5ferrari2024,7eisenreich2024,9ruan2023,14chaaben2023}. \\[6pt]
+  \midrule
+  \textbf{Reliance on prompt quality and expert guidance} & 
+  Outputs depend heavily on carefully engineered prompts, limiting full automation 
+  \cite{6wang2024,13benardi2024}. \\[6pt]
+  \midrule
+  \textbf{Performance variability} & 
+  Depends on input formats, prompting techniques, LLM versions, and training data, leading to inconsistent results 
+  \cite{14chaaben2023,2babaalla2024,3ahmad2023,15Naimi}. \\[6pt]
+  \midrule
+  \textbf{Dependency on external knowledge bases} & 
+  Quality can improve through Retrieval-Augmented Generation (RAG) or similar methods (e.g., Bernardi et al.) 
+  \cite{13benardi2024}. \\
+  \bottomrule
+  \end{tabular}
+  \label{tab:llm_limitations}
+  \caption{RQ2: Limitations of using LLMs in software modeling}
+\end{table}
 
 
-\section{Inserting Tables} % (fold)
-\label{sec:inserting_tables}
+\textbf{RQ3: What GAI models have been applied for producing class diagrams  in the context of software development?}\\
 
-% section inserting_tables (end)
+The most use GAI model was the one developed by OpenAI, ChatGPT, different versions of the model were used in different applications \cite{openai2025}. The second most popular was LLaMA developed by Meta \cite{llama2025}. Also, in the Wang framework \cite{8z_wang2024} it was used the GLM-4 model, developed by THUDM (Tsinghua University Distributed Machine Learning group) and supported by Zhipu AI \cite{glm2024chatglmfamilylargelanguage}.
+
+\begin{table}[htb]
+\centering
+\small
+\renewcommand{\arraystretch}{0.9} % reduces vertical spacing between rows
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{6cm} p{8cm}}
+  \toprule
+  \textbf{GAI model} & \textbf{Papers} \\ 
+  \midrule
+  ChatGPT models & \cite{5ferrari2024,7eisenreich2024,9ruan2023,10chen2023,11omar2023,12li2024,14chaaben2023,1deBari2024,2babaalla2024,3ahmad2023,4jahan2024,6wang2024} \\ 
+  \midrule
+  LLaMA models &  \cite{7eisenreich2024,13benardi2024,2babaalla2024}\\
+  \midrule 
+  GLM-4 model &  \cite{8z_wang2024}\\
+\end{tabular}
+\caption{R3: Generative AI models used in the papers analysed}
+\label{tab:GAI_models_most_used}
+\end{table}
 
 
-\section{Importing Images} % (fold)
-\label{sec:importing_images}
+\textbf{RQ4: What are the key approaches in the automation of functional and non-functional requirements into design models using AI?}
+\\
+On of the key approach was using LLMs for automate the design models. The use of prompting engineering are fundamental in order to enhance the extraction and synthesis of design. Chaaben et al. use few-shot prompt learning to overcome the scarcity of specialized datasets required for traditional deep-learning approaches \cite{14chaaben2023}. Ruan et al. \cite{9ruan2023} proposed framework uses zero-shot learning to extract the elements of requirements descriptions. Or the study of Chen et al. \cite{9ruan2023} that compares the performance of different prompting engineering. The prompt employed included a task description a detailed domain specification, a format description and, depending on the technique used, reference examples with reasoning steps to guide the model's response. 
+Another is  a rule-based approach like the one presented in the study by Jahan et al. that uses preprocessing methods to deal with compound sentences and grouping consecutive nouns, then applying NLP heuristic that extract the elements from the requirements. He then compared a rule-based approach with a LLM approach \cite{4jahan2024}.
+A machine learning hybrid approach such as the one used by Babaalla in his study where it was combined bidirectional LSTMs, tree structures and LLMs. This multi-layered architecture jointly extracts UML fragments (e.g., classes, attributes, methods) and relationships, thereby mitigating error propagation often seen in staged approaches \cite{2babaalla2024}.
+Another Hybrid approach was developed by Eisenreich et al. \cite{7eisenreich2024} and Ahmad et al.  \cite{3ahmad2023} that implemented iteratively refinement through human feedback in their approaches.
+Another approach was the use of Retrieval- Augmented generation. Bernardi et al. used Retrieval-Augmented Generation (RAG) to improve the domain knowledge of the LLM in order to improve the feedback about the models \cite{13benardi2024}.
+\begin{table}[htb]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{0.9} % reduces vertical spacing between rows
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{p{3cm} p{2cm} p{5cm} p{5cm}}
+  \toprule
+  \textbf{Approach} & \textbf{Studies} & \textbf{Techniques Employed} & \textbf{Key Aspects/Outcome} \\
+  \midrule
+  LLM-based Prompting & \cite{14chaaben2023,9ruan2023,10chen2023}& 
+  Few-shot and zero-shot learning; prompts including a task description, detailed domain specification, format guidelines, and (when applicable) reference examples with reasoning steps.
+  & 
+  Enhances the extraction and synthesis of design models from requirements. \\
+  \midrule 
+  Rule-based Approach & 
+  \cite{4jahan2024} & 
+  Preprocessing techniques (handling compound sentences, grouping consecutive nouns) combined with NLP heuristics.
+  & 
+  Extracts requirement elements; used as a baseline for comparing LLM approaches. \\
+  \midrule 
+  Hybrid ML Approach & \cite{2babaalla2024} & 
+  Integration of bidirectional LSTMs, tree structures, and LLMs to jointly extract UML fragments (classes, attributes, methods) and relationships.
+  & Mitigates error propagation typical of staged approaches. \\
+  \midrule 
+  Hybrid with Iterative Human Feedback & \cite{7eisenreich2024,3ahmad2023} &
+  Iterative refinement of LLM outputs through human feedback.
+  & 
+  Improves the accuracy and relevance of the generated design models. \\
+  \midrule 
+  Retrieval-Augmented Generation (RAG) & 
+  \cite{13benardi2024} & 
+  Combines LLMs with a retrieval system to enhance domain knowledge integration.
+  & 
+  Enhances model feedback and improves the quality of generated designs. \\
+  \end{tabular}
+  \caption{R4: Key Approaches in the Automation of Functional and Non-Functional Requirements into Design Models Using AI}
+  \label{tab:rq4-approaches}
+  \end{table}
+
+\section{Synthesis of the results} % (fold)
+\label{sec:systhesis_of_the_results}
+The results of the systematic aimed to understand the current state of research on the use of LLMs and GAI for automating requirement modelling. We have identified that there are hybrid approach that take leverage of machine learning models \cite{2babaalla2024}, others introduce a iterative human-refinement in order to improve the result \cite{7eisenreich2024,3ahmad2023}, or rule-based methods to improve extraction of design elements \cite{4jahan2024}, or a implementation of a RAG system to improve  the domain knowledge of the LLM \cite{13benardi2024}. A common factor was the importance of good prompts to achieve good results. Therefore, many of the studies employed prompt engineering techniques such as zero-shot learning \cite{9ruan2023}, few-shot learning \cite{14chaaben2023} and CoT \cite{10chen2023}. 
+The analysis showed that the most frequently used LLM was ChatGPT, developed by OpenAI. Its widespread application shows its  strong versatility and robust performance across various task. Following closely, was LLaMA , owned by Meta. Its frequently used in task requiring domain-specific understanding.
+It's noticing that the LLMs can improve the manual effort in requirement modelling. However, they still face limitations. These includes difficulties identifying  relationships between entities, variability in output quality, struggle with  handling domain-specific knowledge, and poor performs when dealing with ambiguous or incomplete requirements.
+  
+\section{Threats to validity } % (fold)
+\label{sec:threats_to_validity}
+
+\paragraph{Internal Validity} 
+In systematic mapping studies there is always the risk of not including all relevant studies. While defining the search string, we made an effort to include synonyms and alternative terms related to the research questions. Although this efforts, the results may miss some relevant studies that do not use the specified keywords. To mitigate this risk, we text several search strings based on the number of relevant results they retrieved and chose the most optimal.
+\\Additionally, there is the potential risk of excluding relevant studies during the selection. As the study selection and data extraction were conducted by a single person, and the volume of studies was substantial, the inclusion criteria and exclusion criteria were defined to avoid, at least to some extent, introducing selection bias in the process.
+
+\paragraph{External Validity}
+To ensure we had the maximum of relevant research work regarding our goal, we obtained the studies through the digital libraires, IEEE Xplore and ACM Digital Library, that are well established digital libraries in the software engineering field and ensured a large set of peer-to-peer reviewed papers.However, a potential limitation arises from the exclusive reliancce on these two digital libraries, as other relevant studies may be present in different sources such as Springer and ArXiv were not considered. This may have led to the omission of relevant studies, introducing a potential bias in the selecting process.
+Additionally, we did not consider Non-English or papers published after 2019. While this constraints were implemented to maintain focus and ensure high-quality sources, they introduce a risk of missing valuable contributions outside our selected databases and timeframe. 
+
+\paragraph{Conclusion Validity}
+A challenge to validity was the fact we do not have the knowledge of how the search engines of the used digital libraries work. To address this, we documented the exact search string used and we extracted a csv file with the results of the search to ensure consistency across searches and to facilitate systematic data organization. However, as the study selection and data extraction were conducted by one person, there remains a potential for subjective bias. 
+Although these challenges, the structured methodology and tools used contribute to the reliability of the conclusions drawn.
+
+\section{Related Work} % (fold)
+\label{sec:related_work}
+NLP and LLMs have show potential to change the software engineering field, particularly in requirements engineering, architecture design, conceptual modelling, taxonomy construction, code generation and test case generation. 
+The systematic study on NLP for requirements Engineering (NLP4RE) \cite{22Zhao} published in 2021 identifies the analysis phase as the most researched followed by management, elicitation, and modeling, while validation verification, testing, and design receive the least attention. The study also identifies that requirements specification documents are the most common input, and that tools developed are mainly focused on modelling, detection and extraction, although only 13.08\% of the tools are accessible online. An the most widely used NLP technologies include POS tagging, tokenization, parsing with tools such as StanfordCoreNLP, GATE, and NLTK.
+A significant challenge discovered on the systematic study is the absence of RE-specific resources, which prevent the development of effective domain-specific solutions. The authors belove that transfer learning techniques can help addressing this gap.
+
+LLMs have been employed for different tasks related to software engineering. One of them is generate architectural designs \cite{17Dhar}, in this paper the authors used three different approaches (zero-shot, few-shot prompting, and fine-tuning), and different models to evaluate the performance of the LLMs. The results showed that GPT-4 excels in generating structured and relevant ADDs. However, smaller models can achieve comparable results. After fine-tuning, Flan-T5-Base with fewer parameters achieves comparable performance to GPT-3.5 in a few-shot approach, suggesting its utility for organizations prioritizing cost efficiency, privacy, and minimal hosting infrastructure. Although, LLMs are not entirely reliable for ADR generation but can effectively assist architects in documenting ADDs. Despite advancements, even the best fine-tuned models cannot match GPT-4 in adhering to the ADR markdown format. The findings suggest that smaller models like text-davinci-003, when used with a few-shot approach, can offer a cost-effective alternative to larger models like GPT-4, although their generalizability remains uncertain. This underscores the trade-offs between cost, infrastructure, and performance when using LLMs for ADD generation.
+
+Similar, Chen's at el. \cite{18Chen} compares the use of prompting and fine-tuning to enhance the performance of Large Language Moldes for taxonomy construction. The users used two techniques to fine-tune the model, layer-wise fine-tuning, which updates parameters in the last few layers, and LoRA, which uses low-rank decomposition to update all parameters. In contrast for prompting, to deal with variation of outcomes when generating taxonomies with prompting, they use majority voting to aggregate outcomes from multiple runs. The results of the comparative study indicate that the prompting method outperformed fine-tuning when compared using F1 score. The gap between the two approaches increases when the training dataset is smaller because is more challenging to fine-tune. Although, neither approach surpassed the current state-of-art performance achieved by BERT-based models on WordNet, suggesting that model architecture significantly influences task performance.
+The study emphasizes the importance of selecting appropriate methods based on dataset size and resource constraints while acknowledging the need for further advancements to address existing limitations in taxonomy generation using LLMs.
+
+Another task were LLMs can be used is in establishing traceability between natural language requirements and software. Ali at el. approach \cite{19Ali} used LLMs combined with RAGs to compact the ambiguities within requirements engineering. It offers the knowledge to be dynamically incorporated in  a scalable, plug-in fashion compared to traditional models in which the knowledge is parametrized. Another advantage is that by using human-authored texts incorporate in the generation, it simplifies the generation process and may improve out quality. The effectiveness of RAG relies heavily on the quality of its index, which serves as a contextual bridge, helping LLMs disambiguate requirements by providing precise context.
+The RAG system was implemented in two stages: the indexing stage, which creates and stores code summaries as indexes for fast and relevant matches, and the querying stage, which retrieves relevant documents to provide contextual input for LLMs in predicting classes aligned with a given requirement. This approach ensures that retrieved documents demonstrate high relevance accuracy, which is critical for reliable requirements traceability. By prioritizing precision over recall, the RAG mechanism minimizes irrelevant links between requirements and code, reducing the risks of misleading connections and supporting efficient maintenance and verification processes.
+
+Similarly, Arora's at el. approach \cite{20Arora} also employs a retrieval augmented system to generate a test scenario form natural language requirements. The choice of employing a RAG system is do to LLMs facing challenges with domain-specific queries, often producing inaccurate or incomplete outputs. By incorporating domain-specific context into prompts, improves the accuracy and relevance of generated TSs. The industrial case study presented by Arora's \cite{20Arora} in collaboration with Austrian Post Group IT, revealed that bilingual and domain-specific requirements, such as proprietary internal processes, are particularly challenging for LLMs due to limited public data. As in Dhar's et al. explanatory empirical study \cite{17Dhar} it was used the BLUE, ROUGE and METEOR evaluation metrics, providing unique insights into similarity, recall, and alignment with human judgment.
+A notable indirect advantage found in this study was that when the generated tested scenarios presented major issues, it was due to the original requirements were incomplete and poor-quality.
+In both studies the approach presented great promises, but which are constrained by the quality of input, preciseness of prompts and effective contextual integration.
+
+A exploratory study conducted on the task of using LLMs \cite{21Ali} for conceptual modelling showed that the user is aware of the lack of contextual memory, inaccuracy and unreliability reliance on precise inputs of LLMs, aligned with those observed in \cite{18Chen}. Addressing these limitations is essential to improving usability and reliability across application domains.
+
+In conclusion, he integration NLP and LLMs into the different areas of software engineering domain shows potential to transform those areas. Despite the advancements made indifferent areas, several common themes and challenges emerge across studies. 
+First, the lack of domain-specific resources and datasets is recurring limitations as observed in systematic mapping NLP4RE \cite{22Zhao}, taxonomy generation \cite{18Chen}, and test case generation \cite{20Arora}. This restricts the ability to create reliable and effective tools for software engineering tasks. Second, there is a trade-off between cost, infrastructure, and performance. Smaller models often are cost-effective solutions but often fall short in terms of generalization and accuracy compared to large models like GPT-4
+Additionally, contextual integration plays a critical role in effectiveness of these models. Whether through RAG systems \cite{20Arora,17Dhar}, or the structured use of prompts, incorporating domain-specific knowledge significantly improves the relevance and accuracy of outputs. Nevertheless, these approaches depend on the quality of input data and the precision of prompt engineering.
+As suggested in by Ali's \cite{21Ali} its fundamental to address limitations such as lack of contextual memory, inaccuracy, and dependence on precise inputs in LLMs, to improve usability, reliability, and integration into broader software engineering practises.
 
 % section importing_images (end)
 
-
-\section{Floats, Figures and Captions} % (fold)
-\label{sec:floats_figures_and_captions}
-
-% \subsection{Inserting Figures Wrapped with text} % (fold)
-% \label{ssec:inserting_images_wrapped_with_text}
-%
-% You should only use this feature is \emph{really} necessary. This means, you have a very small image, that will look lonely just with text above and below.
-%
-% In this case, you must use the \verb!wrapfigure! package.  To use \verb!wrapfig!, you must first add this to the preamble:
-%
-% \begin{wrapfigure}{l}{2.5cm}
-%   \centering
-%     \includegraphics[width=2cm]{snowman-vectorial}
-%   \caption{A snow-man}
-% \end{wrapfigure}
-%
-% \noindent\verb!\usepackage{wrapfig}!\\
-% This then gives you access to:\\
-% \verb!\begin{wrapfigure}[lineheight]{alignment}{width}!\\
-% Alignment can normally be either ``l'' for left, or ``r'' for right. Lowercase ``l'' or ``r'' forces the figure to start precisely where specified (and may cause it to run over page breaks), while capital ``L'' or ``R'' allows the figure to float. If you defined your document as twosided, the alignment can also be ``i'' for inside or ``o'' for outside, as well as ``I'' or ``O''. The width is obviously the width of the figure. The example above was introduced with:
-% \lstset{language=TeX, morekeywords={\begin,\includegraphics,\caption}, caption=Wrapfig Example, label=lst:latex_example}
-% \begin{lstlisting}
-%   \begin{wrapfigure}{l}{2.5cm}
-%     \centering
-%       \includegraphics[width=2cm]{snowman-vectorial}
-%     \caption{A snow-man}
-%   \end{wrapfigure}
-% \end{lstlisting}
-
-% subsection inserting_images_wrapped_with_text (end)
-
-% section floats_figures_and_captions (end)
-
-\lipsum[1-3]
-
-\begin{figure}[htbp]
-  \centering
-  \subbottom[One sub-figure\label{fig:leftsubfig}]{%
-    \includegraphics[width=0.5\linewidth]{knitting-vectorial}}%
-  \subbottom[Another sub-figure\label{fig:rightsubfig}]{%
-    \includegraphics[width=0.5\linewidth]{knitting-vectorial}}%
-  \caption{A figure with two sub-figures!}
-  \label{fig:fig2subfig}
-\end{figure}
-
-\textbf{And this is a small text that references the Figure~\ref{fig:fig2subfig} and its Subfigures~\ref{fig:leftsubfig} and~\ref{fig:rightsubfig}.}
-
-\lipsum[1-3]
-
-
-\section{Text Formatting} % (fold)
-\label{sec:text_formatting}
-
-% section text_formatting (end)
-
-
-\section{Generating PDFs from \LaTeX} % (fold)
-\label{sec:generating_pdfs_from_latex}
-
-\subsection{Generating PDFs with pdflatex} % (fold)
-\label{ssec:generating_pdfs_with_pdflatex}
-
-You may create PDF files either by using \verb!latex! to generate a DVI file, and then use one of the many DVI-2-PDF converters, such as \verb!dvipdfm!.
-
-Alternatively, you may use \verb!pdflatex!, which will immediately generate a PDF with no intermediate DVI or PS files. In some systems, such as Apple, PDF is already the default format for \LaTeX. I strongly recommend you to use this approach, unless you have a very good argument to go for \verb!latex! + \verb!dvipdfm!.
-
-A typical pass for a document with figures, cross-references and a bibliography would be:
-\begin{verbatim}
-$ pdflatex template
-$ bibtex template
-$ pdflatex template
-$ pdflatex template
-\end{verbatim}
-You will notice that there is a new PDF file in the working directory called \verb!template.pdf!. Simple :)
-
-Please note that, to be sure all table of contents, cross-references and bibliographic citations are up-to-date, you must run \verb!latex! once, then \verb!bibtex!, and then \verb!latex! twice.
-% section generating_pdfs_with_pdflatex (end)
-
-\subsection{Dealing with Images} % (fold)
-\label{sub:dealing_with_images}
-
-You may process the same source files with both \verb!latex! or \verb!pdflatex!. But, if your text include images, you must be careful. \verb!latex! and \verb!pdflatex! accept images in different (exclusive) formats.  For \verb!latex! you may use EPS ou PS figures. For \verb!pdflatex! you may use JPG, PNG or PDF figures.  I strongly recommend you to use PDF figures in vectorial format (do not use bitmap images unless you have no other choice).
-% subsection dealing_with_images (end)
-
-
-\subsection{Dealing with Citations} % (fold)
-
-Para fazer citações, deverá usar-se a chave da referência no ficheiro BibTeX. Se for uma única referência~\cite{Artho04}, usar um ``\verb!~!'' para ligar o \verb!\cite{...}! à palavra que o precede (\ldots\verb!referência~\cite{Artho04}!).  Caso queira fazer múltiplas citações~\cite{Shavit95,Silberschatz06,Moss85}, deverá agrupá-las dentro de um úinico \verb!\cite{...}!.
-
-Note que o ficheiro de bibliografia pode ter tantas entradas quantas quiser. Apenas aquelas cuja chave seja referenciada no texto é que serão incluidas na listagem de bibliografia.
-
-
-\subsection{Footnotes} % (fold)
-
-Footnotes\footnote{This is a simple footnote.} will be numbered and shown in the bottom of the page.
-
-
-\subsection{Tables} % (fold)
-
-The Table~\ref{tab:hla:results} illustrates some important concepts associated with table construction:
-\begin{asparaenum}[i)]
-\item Do not use vertical lines;
-\item The caption should be above the table;
-\item Use the macros \verb!\toprule!, \verb!\midrule! and \verb!\bottomrule! to make the top, inner and bottom horizontal lines, respectively.
-\end{asparaenum}
-
-\bgroup
-\rowcolors{1}{}{GhostWhite}
-\begin{xltabular}{\textwidth}{Xccccc}
-  \caption{Test results summary.}
-  \label{tab:hla:results}\\
-  \toprule
-  \rowcolor{Gainsboro}%
-  Test   & Anomalies  & Warnings  & Correct   & Categories            & Missed \\
-  \midrule
-Connection~\cite{Beckman08}     & 2       & 2          & 1          & \emph{C}              & 1 \\
-Coordinates'03~\cite{Artho03}   & 1        & 4          & 1          & \emph{2B, 1C}          & 0 \\
-Local Variable~\cite{Artho03}    & 1        & 2          & 1          & \emph{A}              & 0 \\
-NASA~\cite{Artho03}              & 1        & 1          & 1          & ---                    & 0 \\
-Coordinates'04~\cite{Artho04}    & 1        & 4          & 1          & \emph{3C}              & 0 \\
-Buffer~\cite{Artho04}            & 0        & 7          & 0          & \emph{2A, 1B, 2C, 2D}  & 0 \\
-Double-Check~\cite{Artho04}      & 0        & 2          & 0          & \emph{1A, 1B}          & 0 \\
-StringBuffer~\cite{Flanagan04}  & 1        & 0          & 0          & ---                    & 1 \\
-Account~\cite{Praun03}          & 1        & 1          & 1          & ---                   & 0 \\
-Jigsaw~\cite{Praun03}            & 1        & 2          & 1          & \emph{C}              & 0 \\
-Over-reporting~\cite{Praun03}    & 0        & 2          & 0          & \emph{1A, 1C}          & 0 \\
-Under-reporting~\cite{Praun03}  & 1        & 1          & 1          & ---                    & 0 \\
-Allocate Vector~\cite{IBM-Rep}  & 1        & 2          & 1          & \emph{C}              & 0 \\
-Knight Moves~\cite{Beckman08}   & 1        & 3          & 1          & \emph{2B}              & 0 \\
-  \midrule
-  \rowcolor{Gainsboro}%
-Total                            & 12      & 33        & 10        & 5A, 6B, 10C, 2D       & 2 \\
-  \bottomrule
-  \end{xltabular}
-\egroup
-
-\subsection{Figures} % (fold)
-
-The images inserted in the document must be of good quality, preferably in vector format (vector PDF) and not in \emph{bitmap} (PNG, JPG, etc.). \emph{bitmap} images (Figure~\ref{fig:Figures_Tree_silhouettes-bitmap}) do not scale well and have negative effects on the quality of your document. On the other hand, \emph{vector} images {Figure~\ref{fig:Figures_Tree_silhouettes-vectorial}} scale as much as necessary without degrading the quality of the image.
-
-You should only use \emph{screenshots} for your plots, charts, etc, if you absolutely have no other alternative. Instead of generating a \emph{screenshot}, try using a virtual PDF printer and printing to a PDF file. As a general rule, you will get a vector PDF. Even if your PDF contains images, they will always be of higher or equal quality than what you would get with a \emph{screenshot}.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[height=1in]{snowman-bitmap}
-  \includegraphics[height=3in]{snowman-bitmap}
-  \includegraphics[height=6in]{snowman-bitmap}
-  \caption{Bitmap image (JPG/PNG)}
-  \label{fig:Figures_Tree_silhouettes-bitmap}
-\end{figure}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[height=1in]{snowman-vectorial}
-  \includegraphics[height=3in]{snowman-vectorial}
-  \includegraphics[height=6in]{snowman-vectorial}
-  \caption{Vectorial image (PDF)}
-  \label{fig:Figures_Tree_silhouettes-vectorial}
-\end{figure}
-
-To combine several figures into a single one… You can then reference the set as Figure~\ref{fig:complete-figure} or the sub-figures separately as~\ref{fig:woolball} and~\ref{fig:cloud}.
-
-\begin{figure}[htbp]
-  \centering
-    \subbottom[Novelo de lã]{%
-    \label{fig:woolball}
-    \includegraphics[height=1in]{knitting-vectorial}
-    }
-\qquad\qquad
-    \subbottom[Tempestade com neve]{%
-    \label{fig:cloud}
-    \includegraphics[height=1in]{snowstorm-vectorial}
-    }
-  \caption{Exemplo de utilização de \emph{subbottom}}
-  \label{fig:complete-figure}
-\end{figure}
-
-\section{Equations}
-
-LaTeX is a powerful tool for writing in a mathematical style. It allows you to insert formulas into the text, such as this: $ax^2 + bx + c = 0$. It also allows formulas to be highlighted on a separate line and centered on the page.
-\[ x = \frac{-b \pm \sqrt{b^2-4ac}}{2a} \]
-or numbererd
-\begin{equation}
-e = mc^2
-\label{eq:1}
-\end{equation}
-which can latter be referenced as equation~\ref{eq:1}
-
-\newif\ifntlistingsloaded
-\ntifpkgloaded{listings}{\ntlistingsloadedtrue}{\ntlistingsloadedfalse}
-\newif\ifntmintedloaded
-\ntifpkgloaded{minted}{\ntmintedloadedtrue}{\ntmintedloadedfalse}
-
-\ifntlistingsloaded
-\section{Test for listings} % (fold)
-\label{sec:test_for_listings}
-
-Testing the package “listings“…
-
-\begin{lstlisting}[caption=cap,label=lst:lab,float=htbp]
-if(a==b)
-  puts("YESS!")
-\end{lstlisting}
-\fi
-
-\ifntmintedloaded
-\section{Test for minted} % (fold)
-\label{sec:test_for_minted}
-
-Testing the package “minted“…
-
-\begin{listing}[H]
-  \begin{minted}{C}
-    if(a==b)
-      puts("YESS!")
-  \end{minted}
-  \caption{Example of a listing.}
-  \label{lst:lab}
-\end{listing}
-\fi
-
-\section{Test for algorithms}
-\label{sec:test_for_algorithms}
-
-Uncomment the algorithms source below and add the following to file “\verb!5_packages.tex!”
-\begin{verbatim}
-  \usepackage{algorithm2e}
-  \RestyleAlgo{ruled}
-\end{verbatim}
-and uncomment
-\begin{verbatim}
-\ntaddlistof{listofalgorithms}
-\end{verbatim}
-in file “\verb!8_list_og.tex!”.
-
-% \begin{algorithm}
-% $i\gets 10$\;
-% \eIf{$i\geq 5$}
-% {
-%     $i\gets i-1$\;
-% }{
-%     \If{$i\leq 3$}
-%     {
-%         $i\gets i+2$\;
-%     }
-% }
-% \caption{This is an algorithm.}
-% \end{algorithm}
-
-% section test_for_listings (end)
-
-% \printbibliography[heading=subbibliography, segment=\therefsegment, title={\bibname\ for chapter~\thechapter}]
-
+\section{Summary}
+This chapter describes the systematic mapping study done during this first part of this thesis. The systematic mapping study aimed to understand how the LLMs have been used for deriving design models from textual requirements. The research methodology applied followed a three key phases: planning, conducting, and reporting.
+The study identified various techniques used to leverage LLM in design modeling. Direct code generation was one of the most common approaches, where LLMs like ChatGPT and LLaMA were used to generate UML diagrams from textual descriptions. A significant finding was the increasing integration of RAG systems, which improve LLMs' capabilities by integrating domain-specific knowledge. However, the study also highlighted key challenges, including the ambiguity and incompleteness of natural language requirements, the dependency on high-quality prompts, and the limitations of LLMs in capturing complex software design patterns.
+Despite the promising applications of LLMs, challenges such as limited contextual memory, variability in output quality, and difficulty in handling domain-specific knowledge remain a struggle. These findings underscore the need for improved prompt engineering techniques, more structured data augmentation, and further advancements in contextual awareness and domain specific knowledge integration to enhance the usability and reliability of LLMs in design modeling.
