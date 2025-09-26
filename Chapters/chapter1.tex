@@ -19,12 +19,12 @@
 \setlength\epigraphrule{0pt}
 
 
-This research was inspired by recent advancements in General Artificial Intelligence (GAI) and the ongoing need to automate the process of requirement modelling. Automating this process could significantly improve communication with stakeholders and streamline requirement management.
-This introductory chapter provides an overview of the context and motivation of this dissertation, defines the problem statement and the associated challenges, and presents the objectives of this thesis preparation along with the expected contributions.   
+This research was motivated by recent advancements in General Artificial Intelligence (GAI) and the ongoing need to automate requirement modeling. Automating this process has the potential to significantly enhance communication with stakeholders by producing clearer and more comprehensive diagrams, while also reducing the time spent on software modeling and thereby increasing overall efficiency.
+This introductory chapter provides an overview of the context and motivation of this dissertation, defines the problem statement and the associated challenges, and presents the objectives of this thesis preparation along with the expected contributions.
 
 \section{Context and Motivation}
 \label{sec:context_and_motivation}
-Software modeling an essential process in software engineering, that involves creating abstract representations of the most significant aspects of the software, facilitating the identification of potential issues early, improving design consistency, and providing a blueprint for implementation and maintenance. Traditionally, this process is carried out manually by software engineers, which can be time-consuming and heavily reliant on human expertise \cite{10chen2023}. 
+Software modeling is an essential process in software engineering, that involves creating abstract representations of the most significant aspects of the software, facilitating the identification of potential issues early, improving design consistency, and providing a blueprint for implementation and maintenance. Traditionally, this process is carried out manually by software engineers, which can be time-consuming, heavily reliant on human expertise, and prone to human error \cite{10chen2023}. 
 
 Over the past two years, several approaches with a combination of LLM and rule-based system \cite{4jahan2024} or machine-learning systems \cite{2babaalla2024} have been developed to automate the process of generating design models from requirements, with the goal of improving efficiency and minimizing dependence on manual effort. 
 Although these approaches have shown promising results, they still present limitation in terms of accurately identifying complex relationships, often producing hallucinated output \cite{miranda2024towards}. Additionally, issues such as ambiguity in natural language \cite{5ferrari2024} and limited domain-specific knowledge \cite{9ruan2023} limit the adaptability and accuracy of these techniques in practical real-world scenarios. 
@@ -32,17 +32,18 @@ Although these approaches have shown promising results, they still present limit
 \section{Problem statement and objectives}
 \label{sec:problem_statement_and_objectives}
 
-We defined the problem statement as \textbf{the lack of knowledge domain, and the quality of the requirements presented by LLM, which lead to incomplete and inaccurate requirement models.}The problem statement was based on the findings of the systematic mapping study we conducted. The discussion that follows identifies and justifies the main problem that comprises the problem statement, the challenges that arise from these problems, and a brief description of what we can do to solve them. 
+We defined the problem statement as \textbf{the lack of knowledge domain, and the inconsistency of outputs presented by LLM, which lead to incomplete and inaccurate requirement models.} 
+The problem statement was based on the findings of the systematic mapping study we conducted. The discussion that follows identifies and justifies the main problem that comprises the problem statement, the challenges that arise from these problems, and a propose solution to address them. 
 
 \vspace{1.5 em}
-\textbf{Problem: The lack of domain-specific knowledge and the quality of the requirements presented by LLM lead to incomplete and inaccurate requirement models.}\\
+\textbf{Problem: The lack of domain-specific knowledge and the inconsistency of outputs presented by LLM presented by LLM lead to incomplete and inaccurate requirement models.}\\
 Our systematic mapping study highlights key challenges impacting the completeness and accuracy of requirement models generated. Main issues include ambiguity, vagueness, and inconsistency in the input requirements, which affect the model’s ability to produce reliable output. \cite{11omar2023}. To mitigate these issues, clear and well-structured input specifications, combined with iterative prompting, are critical measures to enhance the accuracy and relevance of generated models \cite{5ferrari2024}. In this context, prompt engineering plays a crucial role in addressing input-related challenges, helping to guide models toward more precise and contextually appropriate results.
 Beyond input quality, LLMs exhibit problems in identifying complex relationships and attributes, which often leads to lower correctness rates in the generated models \cite{6wang2024}. This limitation can be associated with the fact that the models lack domain-specific knowledge, resulting in outputs that are not only incomplete but sometimes hallucinated or contextually incorrect. Furthermore, the restricted scope of an LLM’s training dataset limits its ability to generalize effectively across diverse or specialized domains. The identification of these difficulties led to the definitions of the following challenges:
 
 \vspace{1.5 em}
 \textbf{Challenge 1: Define the best prompt to generate models from requirements.}\\
 The performance of LLMs depends heavily on the quality of the prompts, as noted in the systematic mapping study. Techniques like zero-shot, few-shot and chain-of-thought (CoT) prompting have shown potential to guide LLMs in generating more accurate and relevant outputs. 
-It's important the prompts are clear, detail and domain-specific to ensure accurate and complete models. 
+It is important the prompts are clear, detail and domain-specific to ensure accurate and complete models. 
 
 \vspace{1.5 em}
 \textbf{Challenge 2: Defining the data relevant to improve the domain knowledge.}\\
@@ -54,17 +55,20 @@ Incorporating domain-specific knowledge is a critical step in addressing this li
 Natural language requirements are naturally ambiguous, vague or inconsistent, which can lead to errors in automated model generation. This challenge ties on the analysing the requirements in order to mitigate the ambiguity and vagueness of the requirements by refining it. Its important to have clear and consistent initial requirements before automating the creation of the model.
 
 \vspace{2 em}
-\textbf{Objectives}\\
-The main objective of this thesis is to propose an approach to automate the design modelling from requirements. To achieve our purpose, we initially focus on creating prompts that can improve the quality of the requirements. Furthermore, we aim to implement a RAG system and a process to deal with the ambiguity, vagueness, and incompleteness in the requirements before generating design models.
-\section{Expected contributions}
-\label{sec:expected_contributions}
-Through this dissertation, we expect to contribute to the requirements engineering and software engineering fields with the following:
-\begin{itemize}
-    \item  A structured prompt template designed to improve the translation of natural language requirements into design models with better accuracy and coherence.
-    \item  A systematic evaluation of prompt techniques to identify the most appropriate for generating and comprehensive class diagrams.
-    \item  A domain-aware system that enhances generated models by incorporating contextual domain knowledge, improving relevance and precision.
-    \item  An automated modelling framework that improves the efficiency and reliability of the requirement-to-model translation process.
-\end{itemize}
+\section{Objectives}
+
+The main objective of this thesis is to propose an approach to automate the design modelling from requirements. To achieve our purpose, we propose a automated pipeline that combines prompt engineering techniques with a RAG system to enhance the domain-specific knowledge of LLMs. To reduce the inconsistency of the outputs, we implemented a self refinement loop that analyses and refines the UML class Diagram initial generated to mitigate ambiguity, vagueness, and incompleteness.
+\section{Contributions}
+\label{sec:contributions}
+This thesis provides many contributions to differing fields, which are as follows:
+\begin{enumerate}
+    \item A systematic mapping study of different techniques used to automate design modeling from requirements, providing a structured overview of current approaches and identifying gaps in existing research.
+    \item A structured prompt template to translate system descriptions into UML class diagrams and other UML diagrams. This template addresses the ambiguity, vagueness, and incompleteness often found in real-world requirements, resulting in more reliable outputs from generative models.
+    \item A simple Retrieval-Augmented Generation (RAG) system to enhance the prompts provided to Generative AI systems in the context of UML diagram generation.
+    \item A self-refinement cycle for improving UML diagrams and mitigating inconsistent output quality.
+    \item A novel automatic evaluation framework for UML class diagrams based on three quality dimensions: syntactic, semantic, and pragmatic quality.
+    \item Findings that can inform and contribute to ongoing debates on the role of AI in software modeling.
+\end{enumerate}
 
 
 \section{Document structure}
@@ -74,5 +78,8 @@ Through this dissertation, we expect to contribute to the requirements engineeri
  \begin{itemize}
   \item Chapter 2, Background, provides an overview of software modeling, large language models, and the principles underlying systematic mapping studies, along with an introduction to their methodology.
   \item Chapter 3, State of the art, presents the conducted systematic mapping study and a discussion of its results, and provides an overview of the current state.
-  \item Chapter 4, Automation of design modeling using LLMs and RAG approach, presents the approach thought to automate design modeling and the results of the early experiments conducted.
- \end{itemize}
+  \item Chapter 4, Experiments with Generative AI techniques and tools, presents experiments with different Generative AI techniques and tools to validate possible solutions for the main problems found in the previous Chapters.
+  \item Chapter 5,  An approach to automate the creation of class diagrams, describes the proposed approach to automate the creation of UML class diagrams from natural language requirements, detailing the architecture, components, and workflow of the system.
+  \item Chapter 6, Evaluation, presents the evaluation procedure of the proposed approach, including the questionnaire and G-evaluation results, and discusses the implications of the findings.
+  \item Chapter 7, Conclusions, summarizes the main contributions of the thesis, discusses its limitations, and outlines potential directions for future research.
+\end{itemize}

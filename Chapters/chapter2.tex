@@ -49,6 +49,7 @@ Additionally, class diagrams help assuring quality by for example ensuring that 
 \subsection{Core components of UML class diagrams}
 In UML Class diagram, classes are represented as rectangular boxes, with their attributes and operations detailed inside. The relationships between class are represented using different types of connectors, which demonstrate structural and behavioural associations within the system. There are four primary types of relationships: associations, whole/part relationships, and generalization/specialization relationships and dependencies.
 An association represents a static structural relationship between two or more classes. It defines how instances of one class are related to instances of another class \cite{5BGomaa2011}. Associations can have multiplicity, which specifies how many instance of one class can be associated with instance of another class, (see Figure~\ref{fig:UmlNotionRelationships}  a). The multiplicity of an association ca be optional (0..1), exactly one (1), zero or more (*), numerically specified (m..n), or one or more (1..*)
+
 Whole/part relationships define hierarchical relationships between objects. There are, two types, Aggregation and Composition. Aggregation represents a weak relationship between the whole and its parts, where the part can exist independently of the whole. It is portraited with a hallow diamond at the end of the association. In contrast, composition represents a strong relationship where the part cannot exist independently of the whole. It is presented as a filled diamond at the end of the association (see Figure~\ref{fig:UmlNotionRelationships}  b).
 Generalization/Specialization Hierarchy is an inheritance relationship, where a subclass inherits properties from a superclass. This allows for the reuse of common attributes and behaviors.It Is represented by an arrow joining the subclass (child) to the superclass (parent) (see Figure~\ref{fig:UmlNotionRelationships} c)
 A dependency relationship, is often used to show how packages are related, and represents a weaker relationship where one class depends on another for its operation
@@ -67,7 +68,7 @@ A dependency relationship, is often used to show how packages are related, and r
 \end{figure}
 
 \subsection{UML design class diagrams}
-The design process involves several key steps to ensure that the diagram accurately models the system's domain and behavior. By following a structured approach, designers can systematically identify the key components, define their relationships, and establish clear interactions within the system. The following steps outline a methodical process for designing a UML class diagram:
+The design process involves several key steps to ensure that the diagram accurately models the system's domain and behavior. By following a structured approach, designers can systematically identify the key components, define their relationships, and establish clear interactions within the system. The following steps outline a systematic process for designing a UML class diagram:
 \begin{enumerate}
     \item \textbf{Requirements Analysis:} understand the system's requirements by identifying the main entities or classes that will be part of the system.
     \item \textbf{Identifying Relationships:} identify how the class will interact with the others by determining the type of relationships.

@@ -8,8 +8,37 @@
 
 \typeout{NT FILE chapter6.tex}%
 
-\chapter{Conclusions}
+\chapter{Conclusions and Future Work}
 \label{cha:conclusions}
+The automatic creation of UML Class diagrams presents a significant opportunity to improve and accelerate software development for enterprises by reducing the time needed for diagram creation during software modeling. This thesis introduces an automatic pipeline that leverages Generative AI to transform natural language system descriptions into UML Class diagrams. We detail the various experiments and findings required to design the pipeline, exploring LLM choices and prompting techniques, and using these resources for experiments to assess their feasibility in our research.
+
+The proposed pipeline combines CoT prompting with a RAG system that enhances the initial prompt with relevant chunks of traditional UML documentation used when creating UML diagrams. In addition, use Anthropic models, which achieved the best cost-efficiency ratio. We then apply a self-refinement technique, first proposed by Madaan et al. \cite{madaan2023selfrefineiterativerefinementselffeedback}, to improve the initial generated class diagram. Results are presented as images, but users also have access to the PlantUML code, allowing them to adapt diagrams to their preferences. A proof of concept demonstrates how the pipeline transforms system descriptions of a Patient Record and Scheduling System into representative UML Class diagrams, showcasing both the strengths and limitations of Generative AI transformation.
+
+We also provide an evaluation of the Proof of Concept diagram, presenting a comparative analysis between diagrams created by Daniel De Bari et al. present on the dataset used and diagrams created using our approach \cite{DatasetDeBari2024}. Analysis of the evaluation results reveals that diagrams generated with our pipeline achieve better results on average in both manual and automatic evaluations. However, our approach still faces challenges in creating diagrams that stakeholders can easily comprehend, highlighting the importance of human revision of the final output. Finally, we present the challenges associated with this research, demonstrating how emerging technologies can provide significant benefits while introducing unforeseen complexities and unresolved issues.
+
 \section{Contributions}
+In this thesis, we have made several contributions, which are summarized as follows:
+
+\begin{enumerate}
+    \item A systematic mapping study of different techniques used to automate design modeling from requirements, providing a structured overview of current approaches and identifying gaps in existing research.
+    \item A structured prompt template to translate system descriptions into UML class diagrams and other UML diagrams. This template addresses the ambiguity, vagueness, and incompleteness often found in real-world requirements, resulting in more reliable outputs from generative models.
+    \item A simple Retrieval-Augmented Generation (RAG) system to enhance the prompts provided to Generative AI systems in the context of UML diagram generation.
+    \item A self-refinement cycle for improving UML diagrams and mitigating inconsistent output quality.
+    \item A novel automatic evaluation framework for UML class diagrams based on three quality dimensions: syntactic, semantic, and pragmatic quality.
+    \item Findings that can inform and contribute to ongoing debates on the role of AI in software modeling.
+\end{enumerate}
 \section{Limitations}
-\section{Future Work}
+Despite the contributions of this research, several limitations should be acknowledged. First, the proposed pipeline relies on commercial LLMs, which are subject to cost and availability constraints, potentially limiting reproducibility and accessibility. Second, the database employed consisted of relatively simple, non-real-world examples, which restricted the evaluation of the system in realistic settings. Moreover, the human baseline used for comparison was based on diagrams produced by a single individual, leaving room for a more comprehensive assessment that includes diagrams created by practitioners with varying levels of expertise.
+
+In addition, only three exercises were manually evaluated, which may not fully capture the diversity of modeling scenarios encountered in practice. External factors, such as participants’ limited availability and potential fatigue, may also have influenced the attention devoted to completing the questionnaire, thereby affecting evaluation outcomes. Finally, hardware constraints restricted the experimentation with different Generative AI models and techniques, which limited the scope of comparative analysis.
+\section{Future Work} 
+
+This research represents an initial step toward the automation of UML diagram modeling through Generative AI applied to natural language requirements, yet much remains to be explored.
+
+A first avenue for future work involves \textbf{extending the proposed pipeline beyond class diagrams to other UML notations}, such as sequence diagrams, activity diagrams, and component diagrams. This would provide valuable insights into whether AI can adequately capture not only structural but also dynamic aspects of systems.
+
+Another important direction is to evaluate the pipeline with \textbf{real-world requirements that are often ambiguous, incomplete, or conflicting}. The current evaluation relies primarily on well-structured, academically curated requirements specifications. Such an extension would allow for a more rigorous assessment of its robustness in practical and complex contexts.
+
+In addition, the relatively \textbf{lower pragmatic scores observed in the evaluation suggest the need for further investigation}. Conducting qualitative interviews with domain experts could help to identify the underlying causes of these difficulties and inform strategies to improve diagram understandability.
+
+Finally, future research should include field studies to examine the \textbf{practical impact of automated frameworks such as the one presented here}. These studies could shed light on whether AI-assisted modeling translates into measurable gains in productivity and error reduction in real development environments. While there is strong potential for efficiency improvements, it is anticipated that human oversight will remain essential to ensure that all requirements are accurately represented, regardless of technological advances.

@@ -10,21 +10,21 @@
 
 \chapter{An approach to automate the creation of class diagrams}
 \label{cha:approachAutomateModeling}
-In this chapter, we describe the design, configuration, and integration of our automated class diagram modeling system. 
-Section \ref{sec:promptTechniqueAndModelUsed} details the process of selecting the most suitable prompt technique and LLM for the task, supported by empirical evaluation. 
-Section \ref{sec:RAGSystemImplemented} presents the construction and optimization of the RAG pipeline, including the embedding models, text splitters, retrievers, and vector store configurations tested. 
-Section \ref{sec:selfRefinementApproach} introduces the self-refinement mechanism, explaining its iterative evaluation–improvement loop and prompt engineering strategies. 
-Section \ref{sec:automatic_modelation_pipeline} describes the automated modeling pipeline, detailing the steps from input processing to diagram generation. 
-Section \ref{sec:challenges} discusses the main challenges faced during development, including cost control and RAG component selection, and the strategies adopted to overcome them. 
-Finally, Section \ref{sec:praticalDemonstration} provides a practical demonstration of the system applied to a realistic use case, comparing the AI-generated class diagram to the ground truth and drawing conclusions from the results.
-
+This chapter presents our approach to automate the creation of UML class diagrams from natural language system descriptions.
+Building on the experiments reported in the previous chapter, we evaluate the performance of different Anthropic models with the CoT prompting, comparing recall, cost-performance, and overall effectiveness in the task. Based on these insights, we select the most suitable models to support our approach.
+We then describe the design and implementation of a RAG system. This includes an overview of the components tested, the evaluation procedure, and the metrics used to identify the best configuration for our pipeline.
+Next, we detail the self-refinement loop implemented, explaining its structure, the prompts designed for each stage, and the stopping criteria established to balance performance improvements with cost efficiency.
+Finally, we present the overall system architecture, which integrates the RAG pipeline and the self-refinement loop into a unified process. 
+We discuss the main challenges encountered during development, particularly cost management and RAG configuration, and conclude with a practical demonstration that provides a practical demonstration of the system applied to a realistic use case, comparing
+ the AI-generated class diagram to the ground truth and drawing conclusions from the
+ results.
 \section{Prompt technique and Model used}
 \label{sec:promptTechniqueAndModelUsed}
-From the experiment present on the previous chapter (Chapter ~\ref{cha:ExperimentsGenerativeAI}) we saw that Claude offered the most balanced performer, having the best G-eval results, adding to the fact the models provided to Anthropic have shown great results in software engineering tasks, as it can be seen in the SWE-Leaderboard \footnote{\url{https://swe-bench-live.github.io/}}. We decided to use CoT since was the prompt that achieved the best overall results, as it can be seen in the Section ~\ref{sec:ExperimentPromptModel}.
+From the experiment presented on the previous chapter (Chapter ~\ref{cha:ExperimentsGenerativeAI}) we saw that Claude offered the most balanced performer, having the best G-eval results, adding to the fact the models provided to Anthropic have shown great results in software engineering tasks, as it can be seen in the SWE-Leaderboard\footnote{\url{https://swe-bench-live.github.io/}}. We decided to use CoT since was the prompt that achieved the best overall results, as it can be seen in the Section ~\ref{sec:ExperimentPromptModel}.
 Having selected the prompt and the family of models to use we had to decide the concrete model to use. To help making this decision we conducted a experiment using the same setup used in the previous chapter to evaluate and test the different LLM models.
 
 From the results we can see that the models faced difficulties in identifying the attributes and the methods present in the ground truth resulting in a lower recall value (as it can be seen in figure \ref{fig:recall}).  
-This can be do to the system description not being very clear in some attributes and methods which reconfirms the importance of complete unambiguous system description as it was expressed by Ruan et al. and Chaaben et al. ~\cite{14chaaben2023,9ruan2023}.
+This can be due to the system description not being very clear in some attributes and methods which reconfirms the importance of complete unambiguous system description as it was expressed by Ruan et al. and Chaaben et al. ~\cite{14chaaben2023,9ruan2023}.
 
 \begin{figure}[htbp]
     \centering
@@ -33,18 +33,21 @@ This can be do to the system description not being very clear in some attributes
     \label{fig:recall}
 \end{figure}
 
-Since we are using Anthropic API, each call is priced based on the number of input tokens and output tokens. Anthropic charges per one million tokens; to calculate the price we multiply the price per million tokens by the number of tokens in both the input and output. Consequently, the cost increases with the number of input tokens. Considering this, we tested the impact of adding examples of class diagram creation based on system descriptions to the prompt.
+Since we are using Anthropic API, each call is priced based on the number of input tokens and output tokens per one million tokens. To calculate the price we multiply the price per million tokens by the number of tokens in both the input and output. Consequently, the cost increases with the number of input tokens. Considering this, we tested the impact of adding examples of class diagram creation based on system descriptions to the prompt.
 
 To better evaluate the overall performance of the models we calculated a overall score.
 
+{\small
 \begin{dmath}
-\text{Overall Score} = \frac{1}{4} \left(
-\frac{\text{Validity Score} + \text{Completeness Score}}{2} +
-\frac{\text{Pragmatic Score} + \text{Pragmatic Clarity Score}}{2} +
-\frac{\text{Syntactic Score} + \text{UML Completeness Score} + \text{UML Quality Score}}{3} +
-\text{Requirement Coverage Score}
-\right)
+  \text{Overall Score} = \frac{1}{4} \left(
+  \frac{\text{Validity Score} + \text{Completeness Score}}{2} +
+  \frac{\text{Pragmatic Score} + \text{Pragmatic Clarity Score}}{2} +
+  \frac{\text{Syntactic Score} + \text{UML Completeness Score} + \text{UML Quality Score}}{3} +
+  \text{Requirement Coverage Score}
+  \right)
 \end{dmath}
+}
+
 
 Looking at the overall score we can see that out of the six models, five benefit from having an example in the prompt. Reforcing the hipoteses that adding examples to the prompt can improve the result of the LLMs, the results can be seen in the Figure \ref{fig:overallScore_Models}. 
 
@@ -55,7 +58,7 @@ Looking at the overall score we can see that out of the six models, five benefit
     \label{fig:overallScore_Models}
 \end{figure}
 
-We aim to have all the elements present in ground truth diagrams. Therefore, it's important that the model that we will be using has a good recall, meaning that all elements are represented in the class diagram generated. 
+We aim to have all the elements present in ground truth diagrams. Therefore, it is important that the model that we will be using has a good recall, meaning that all elements are represented in the class diagram generated. 
 Looking at the recall average for each model, we can see that the best one is 3.5 Sonnet followed by the most powerful models Opus 4 and Sonnet 4. Besides these three models, 3.7 Sonnet also presents good results.
 
 When deciding the model, it's also important to have in consideration the relations cost-performance, to do so we calculated the prices of each prompt based on the number of input tokens we were sending and the max output tokens established (2000 tokens).
@@ -82,19 +85,19 @@ To support this process, we developed a custom script to automate the creation a
 The different components we tested were:
 
 \begin{enumerate}
-    \item \textbf{Embedding models} - models that convert text into dense vector representations enabling similarity search;
+    \item \textbf{Embedding models}: models that convert text into dense vector representations enabling similarity search;
     \begin{enumerate}
-        \item all-MiniLM-L6-v2 - maps sentences and paragraphs to a \textbf{384 dimensional dense vector space} and is used for tasks such as clustering or semantic search;
-        \item all-mpnet-base-v2 - maps sentences and paragraphs to a \textbf{768 dimensional dense vector space} and is used for tasks such as clustering or semantic search;
-        \item multi-qa-MiniLM-L6-cos-v1 - maps sentences and paragraphs to a \textbf{384 dimensional dense vector space} and is optimized for \textbf{question-answering tasks} by being trained on 215M (question, answer) pairs from diverse sources;
-        \item all-distilroberta-v1 - maps sentences and paragraphs to a \textbf{768 dimensional dense vector space} and is used for tasks such as clustering or semantic search, it was used the pretrained distilroberta-base model and fine-tuned in on a 1B sentences in on a 1B sentences pairs dataset;
-        \item paraphrase-multilingual-MiniLM-L12-v2 - maps sentences and paragraphs to a \textbf{384 dimensional dense vector space} and is used for tasks such as clustering or semantic search, it was trained on a large corpus of multilingual data to improve its performance on non-English text;
+        \item all-MiniLM-L6-v2: maps sentences and paragraphs to a \textbf{384 dimensional dense vector space} and is used for tasks such as clustering or semantic search;
+        \item all-mpnet-base-v2: maps sentences and paragraphs to a \textbf{768 dimensional dense vector space} and is used for tasks such as clustering or semantic search;
+        \item multi-qa-MiniLM-L6-cos-v1: maps sentences and paragraphs to a \textbf{384 dimensional dense vector space} and is optimized for \textbf{question-answering tasks} by being trained on 215M (question, answer) pairs from diverse sources;
+        \item all-distilroberta-v1: maps sentences and paragraphs to a \textbf{768 dimensional dense vector space} and is used for tasks such as clustering or semantic search, it was used the pretrained distilroberta-base model and fine-tuned in on a 1B sentences in on a 1B sentences pairs dataset;
+        \item paraphrase-multilingual-MiniLM-L12-v2: maps sentences and paragraphs to a \textbf{384 dimensional dense vector space} and is used for tasks such as clustering or semantic search, it was trained on a large corpus of multilingual data to improve its performance on non-English text.
     \end{enumerate}
-    \item \textbf{Text splitters} - Strategies to divide documents into smaller chunks to facilitate storage and improve efficiency;
+    \item \textbf{Text splitters}: Strategies to divide documents into smaller chunks to facilitate storage and improve efficiency;
     \begin{enumerate}
         \item Recursive text splitter with chunk size = 300 tokens and chunk overlap = 20 tokens - Default configuration, balancing context and efficiency;
         \item Recursive text splitter with chunk size = 1024 tokens and chunk overlap = 200 tokens - Large Chunks to preserver a broader context;
-        \item NLTK text splitter with chunk size = 300 tokens and chunk overlap = 20 tokens - Uses linguistic rules for more natural splits;
+        \item NLTK text splitter with chunk size = 300 tokens and chunk overlap = 20 tokens - Uses linguistic rules for more natural splits.
     \end{enumerate}
     \item \textbf{Retrievers} - Algorithms to decide which chunks are more relevant for a given query;
     \begin{enumerate}
@@ -102,24 +105,24 @@ The different components we tested were:
         \item MMR with $k = 3$ and fetch\_k = 10 - Maximal Marginal Relevance to balance relevance and diversity;
         \item Similarity with a score threshold = 0.5 and $k = 10$ - retrieves the top 10 chunks with similarity score above 0.5;
         \item BM25 - information retrieval based on term frequency and document length;
-        \item Ensemble (0.5 BM25 + 0.5 vectorstore) - method that combines traditional retrieval techniques with embedding-based retrieval;
+        \item Ensemble (0.5 BM25 + 0.5 vectorstore) - method that combines traditional retrieval techniques with embedding-based retrieval.
     \end{enumerate}
     \item \textbf{Vector store} - database for storing and retrieving vector embeddings;
     \begin{enumerate}
-        \item Chroma - open-source vector store designed for local and efficient RAG experiments;
+        \item Chroma - open-source vector store designed for local and efficient RAG experiments.
     \end{enumerate}
 \end{enumerate}
 
 To evaluate the which is the best configuration we created a a python script that would create all the possible combinations of the components mentioned above, creating a total of 60 configurations. Each configuration was tested using a set of 15 open-ended questions related to UML, PlantUML. The questions were designed to cover a range of difficulty levels, from basic definitions to complex scenarios involving multiple concepts. Each question has an expected answer and key concepts associated with it.
 Each question was used as a query for the RAG system, and the results were evaluated based on the metrics mentioned above. Here is how each metric was calculated:
 \begin{itemize}
-    \item \textbf{Retrieval time} - Time taken to retrieve relevant chunks of information from the documents based on the query;
-    \item \textbf{Number of chunks generated} - Total number of chunks created from the documents when storing them in the vector store;
-    \item \textbf{Accuracy} - Calculated using keyword matching and semantic similarity between the expected answer and the response generated by the RAG system; it reflects the degree to which the retrieved information is correct and related to the query;
-    \item \textbf{Semantic similarity} - Calculated using cosine similarity between the embedding of the expected answer and the embedding of the response generated by the RAG system; it expresses the extent to which the retrieved chunks are semantically related to the query;
-    \item \textbf{Completeness} - Calculated based on the presence of all key concepts in the response generated by the RAG system; it measures the degree to which all relevant information for answering the query is included in the retrieved chunks;
-    \item \textbf{Relevance} - Calculated based on the arithmetic mean of the similarity scores between the chunks retrieved and the query; it reflects the extent to which the retrieved chunks are relevant to the query;
-    \item \textbf{Syntax correctness} - Calculated using regex patterns to check for the PlantUML syntax elements (such as relationship declarations, stereotypes, start and end markers) that are present in both the expected answer and the response generated by the RAG system; it indicates the degree to which the response adheres to UML syntax rules.
+    \item \textbf{Retrieval time}: Time taken to retrieve relevant chunks of information from the documents based on the query;
+    \item \textbf{Number of chunks generated}: Total number of chunks created from the documents when storing them in the vector store;
+    \item \textbf{Accuracy}: Calculated using keyword matching and semantic similarity between the expected answer and the response generated by the RAG system; it reflects the degree to which the retrieved information is correct and related to the query;
+    \item \textbf{Semantic similarity}: Calculated using cosine similarity between the embedding of the expected answer and the embedding of the response generated by the RAG system; it expresses the extent to which the retrieved chunks are semantically related to the query;
+    \item \textbf{Completeness}: Calculated based on the presence of all key concepts in the response generated by the RAG system; it measures the degree to which all relevant information for answering the query is included in the retrieved chunks;
+    \item \textbf{Relevance}: Calculated based on the arithmetic mean of the similarity scores between the chunks retrieved and the query; it reflects the extent to which the retrieved chunks are relevant to the query;
+    \item \textbf{Syntax correctness}: Calculated using regex patterns to check for the PlantUML syntax elements (such as relationship declarations, stereotypes, start and end markers) that are present in both the expected answer and the response generated by the RAG system; it indicates the degree to which the response adheres to UML syntax rules.
 \end{itemize}
 
 For an overall evaluation, we computed an overall score for each configuration using the formula ~\ref{eq:overall_score} . This score provides a balanced view of the configuration's performance across all metrics.
@@ -141,7 +144,7 @@ For an overall evaluation, we computed an overall score for each configuration u
 Looking at the top 10 overall, all had a score higher than 0.67318, although the difference between top and bottom configurations is statistically small, as illustrated in Figure ~\ref{fig:top10_configurations}. 
 This suggests \textbf{diminishing returns} and points to the importance of secondary metrics (e.g., speed, semantic quality) when making trade-offs.
 
-The \textbf{best overall configuration} is:
+The best overall configuration is:
 \begin{itemize}
     \item Embedding: \texttt{multi-qa-MiniLM-L6-cos-v1}
     \item Splitter: Recursive (chunk size = 300, overlap = 20)
@@ -150,12 +153,12 @@ The \textbf{best overall configuration} is:
 
 This setup achieved:
 \begin{itemize}
-    \item \textbf{Overall score} $\approx 0.684$
-    \item \textbf{Retrieval time} $\approx 0.044\ \text{s}$
-    \item \textbf{Semantic similarity} $\approx 0.567$
-    \item \textbf{Accuracy} $\approx 0.631$
-    \item \textbf{Relevance} $\approx 0.593$
-    \item \textbf{Chunks}: 2580
+    \item Overall score $\approx 0.684$
+    \item Retrieval time $\approx 0.044\ \text{s}$
+    \item Semantic similarity $\approx 0.567$
+    \item Accuracy $\approx 0.631$
+    \item Relevance $\approx 0.593$
+    \item Chunks: 2580
 \end{itemize}
 
 While it produced the \textbf{highest number of chunks}, this was expected due to the small chunk size (300). The higher chunk count contributed positively to retrieval quality, particularly relevance and completeness.
@@ -169,15 +172,15 @@ Regarding \textbf{retrieval time}, this setup was not the absolute fastest but r
 \textbf{Chunk count analysis} showed that smaller chunk sizes (e.g., 300) improved performance at the cost of retrieval volume, whereas larger chunks did not improve scores despite reducing memory and time costs.
 
 
-\begin{figure}[htbp]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=\linewidth]{Chapters/Figures/overall_score_combinations.png}
     \caption{Top 10 configurations}
     \label{fig:top10_configurations}
 \end{figure}
-\begin{figure}[htbp]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.8\linewidth]{Chapters/Figures/semantic_similarity.png}
+    \includegraphics[width=0.8\linewidth, height=0.5\linewidth]{Chapters/Figures/semantic_similarity.png}
     \caption{Semantic similarity score of the top 10 configuration}
     \label{fig:semantic_similarity_RAG}
 \end{figure}
@@ -205,11 +208,12 @@ Despite small differences in overall scores among the top 10, this configuration
 
 Inspired by the iterative refinement framework proposed by Madaan et al.~\cite{madaan2023selfrefineiterativerefinementselffeedback}, this study implements a self-refinement loop in which the same large language model (LLM) is responsible for \textbf{generating}, \textbf{evaluating}, and \textbf{refining} UML class diagrams in an autonomous and cyclical manner. Figure~\ref{fig:self_refinement_loop} illustrates the self-refinement loop.
 
-To prevent excessive or redundant refinement, we impose an upper bound of \textbf{three iterations} per cycle. This decision is empirically supported by the findings of Madaan et al. ~\cite{madaan2023selfrefineiterativerefinementselffeedback}, who observed that while performance improves substantially during the initial two iterations, subsequent iterations tend to yield diminishing returns in both quality and novelty. In addition to this upper limit, we also introduce a \textbf{dynamic stopping condition}: if the improvement in the evaluation score between the current and the previous iteration falls below a threshold of \textbf{0.01}, the loop is terminated early. This ensures that API calls are cost-efficient and only meaningful refinements are performed.
+To prevent excessive or redundant refinement, we impose an upper bound of three iterations per cycle. This decision is empirically supported by the findings of Madaan et al. ~\cite{madaan2023selfrefineiterativerefinementselffeedback}, who observed that while performance improves substantially during the initial two iterations, subsequent iterations tend to yield diminishing returns in both quality and novelty. In addition to this upper limit, we also introduce a \textbf{dynamic stopping condition}: if the improvement in the evaluation score between the current and the previous iteration falls below a threshold of \textbf{0.01}, the loop is terminated early. This ensures that API calls are cost-efficient and only meaningful refinements are performed.
 
 Furthermore, to enhance consistency and reduce redundancy across iterations, we incorporate \textbf{conversational memory} into the prompt context. The model is provided with the content of the two most recent interactions (both the prompt and the corresponding output). This addition was empirically motivated: during initial experimentation, we observed that including minimal conversational history significantly improved the model's ability to avoid previously made errors and reduced the likelihood of introducing redundant or contradictory modifications. However, this improvement in performance comes at the cost of a slightly increased token consumption per API call.
 
-To structure the interactions with the model throughout the self-refinement loop, we adopt a \textbf{Chain-of-Thought (CoT) prompting strategy}~\cite{wei2023chainofthoughtpromptingelicitsreasoning}, which encourages the model to reason through tasks step by step. Each of the three system prompts---\textbf{generation}, \textbf{evaluation}, and \textbf{improvement} was carefully engineered to align with the cognitive role expected of the model during its respective task.
+To structure the interactions with the model throughout the self-refinement loop, we adopt a \textbf{CoT prompting strategy} ~\cite{wei2023chainofthoughtpromptingelicitsreasoning}, which encourages the model to reason through tasks step by step. 
+Each of the three system prompts, \textbf{generation}, \textbf{evaluation}, and \textbf{improvement} was carefully engineered to align with the cognitive role expected of the model during its respective task.
 
 \begin{itemize}
     \item The \textbf{generation prompt} is framed in a descriptive and procedural tone. It guides the model step-by-step through the tasks of entity identification, relationship analysis, attribute extraction, application of UML design principles, and final validation (can be seen in Listing~\ref{lst:generation_prompt}).
@@ -217,7 +221,7 @@ To structure the interactions with the model throughout the self-refinement loop
     \item The \textbf{refinement prompt} takes on a mentor-like tone, instructing the model to act as a senior software architect improving a junior designer's work (can be seen in Listing~\ref{lst:evaluation_prompt}).
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.8\textwidth]{Chapters/Figures/Self_refinement.png}
     \caption{Self-refinement loop architecture.}
@@ -244,7 +248,14 @@ With all components developed, we now integrate them into a unified system. As i
 
 In the final implementation, we adopt a distinctive RAG approach. 
 Instead of directly using the system description as the query for retrieval, we utilize a predefined set of domain-specific questions to extract relevant knowledge chunks from our database. 
-For example, if a user pretends to create a class diagram the predefined questions are, \textit{"What is the PlantUML syntax for drawing class diagrams?"}, \textit{"What are the best practices for UML class diagrams?"}, \textit{"What are the common mistakes in UML class diagrams?"}, \textit{"What are the key principles of UML class diagrams?"}.
+For example, if a user pretends to create a class diagram the predefined questions are:
+\begin{itemize}
+    \item \textit{"What is the PlantUML syntax for drawing class diagrams?"};
+    \item \textit{"What are the best practices for UML class diagrams?"};
+    \item \textit{"What are the common mistakes in UML class diagrams?"};
+    \item \textit{"What are the key principles of UML class diagrams?"}.
+\end{itemize}
+
 These questions, along with the retrieved content, are passed to the Haiku 3 model, which generates natural language responses constrained to a maximum of 1000 tokens. This way we guarantee that the output remain concise and not overly verbose. 
 These responses then serve as contextual input for the prompt that generates the initial class diagram from the system description.
 This modular and context-enriched strategy is extensible to other types of UML diagrams beyond class diagrams.
@@ -291,7 +302,7 @@ By narrowing the scope and selecting community-supported tools, we were able to 
 \label{sec:praticalDemonstration}\
 In this section we present our proposed system and show its feasibility by applying it to a realistic use case, demonstrating how our automatic process can be applied to a system description and examining the results.
 
-For this proof of concept, we used a system description of a Patient Record and Scheduling system present in the dataset \cite{DatasetDeBari2024}. The description can be found in Listing~\ref{lst:patient_system}.
+For this proof of concept, we used a system description of a Patient Record and Scheduling system (Listing~\ref{lst:patient_system}) present in the dataset \cite{DatasetDeBari2024}.
 
 \begin{lstlisting}[caption={System Description: Patient Record and Scheduling System},label={lst:patient_system}]
 A patient record and scheduling system in a doctor's office is used by the receptionists, nurses, and doctors. The receptionists use the system to enter new patient information when first-time patients visit the doctor. They also schedule all appointments. The nurses use the system to keep track of the results of each visit including diagnosis and medications. For each visit, free form text fields are used to capture information on diagnosis and treatment. Multiple medications may be prescribed during each visit. The nurses can also access the information to print out a history of patient visits. The doctors primarily use the system to view patient history. The doctors may enter some patient treatment information and prescriptions occasionally, but most frequently they let the nurses enter this information. -- Each patient is assigned to a family. The head of family is responsible for the person with the primary medical coverage. Information about doctors is maintained since a family has a primary care physician, but different doctors may be the ones seeing the patient during the visit.
@@ -324,7 +335,7 @@ The generated class diagram includes the set of core domain concepts (Patient, V
 
 It introduces an abstract Person class, which Patient and Receptionist inherit from. This ensures that shared details such as names and contact information are only defined once, avoiding duplication and making the design easier to maintain. It also adds more specific roles like Nurse and Receptionist, which were not included in the ground truth diagram. This helps to more accurately model the actual roles and responsibilities within a healthcare setting.
 
-In the generated diagram (Figure ~\ref{fig:ai_result}), with respect to multiplicities, the application attempts to capture the requirement that “multiple medications may be prescribed during each visit.” However, representing this as a direct Visit--Medication association is imprecise. The ground-truth diagram is stronger here: it introduces a Prescription association object that links a Visit to a Medication and carries visit-specific data (e.g., dosage, refills), as it can be seen in Figure ~\ref{fig:ground_truth}. This design correctly supports the multiplicities Visit 1 -- 0.. Prescription and Prescription 0.. -- 1 Medication, and prevents dosage from being incorrectly modeled as a property of the medication itself.
+In the generated diagram (Figure ~\ref{fig:ai_result}), with respect to multiplicities, the application attempts to capture the requirement that “multiple medications may be prescribed during each visit.” However, representing this as a direct Visit--Medication association is imprecise. The ground-truth diagram is stronger here: it introduces a Prescription association object that links a Visit to a Medication and carries visit-specific data (e.g., dosage, refills), as it can be seen in Figure ~\ref{fig:ground_truth}. This design correctly supports the multiplicities Visit 1 -- 0..* Prescription and Prescription 0..* -- 1 Medication, and prevents dosage from being incorrectly modeled as a property of the medication itself.
 
 Regarding relationships, the AI-generated diagram is clearer than the ground truth: instead of just showing a line, it labels relationships with descriptive names such as ``has primary care physician'' or ``attended by''. It even models real-world scenarios more closely, such as an Appointment possibly leading to a Visit.
 
@@ -332,16 +343,16 @@ The AI diagram also goes beyond the specification by adding numerous operations 
 
 In summary, compared with the ground truth, the principal deficiency of the AI-generated diagram is the absence of a dedicated Prescription class. Despite this, the diagram is more complete, uses class hierarchies to avoid redundancy, and includes more realistic workflows. In short, while the ground truth contains the basic concepts of the system, the AI-generated diagram represents a more functional and detailed design, making it a stronger blueprint for actual system implementation.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.9\textwidth]{Chapters/Figures/result_diagram.png}
     \caption{AI-generated class diagram}
     \label{fig:ai_result}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
-    \includegraphics[width=0.9\textwidth]{Chapters/Figures/benchmark.png}
+    \includegraphics[width=0.8\textwidth]{Chapters/Figures/benchmark.png}
     \caption{Ground truth class diagram}
     \label{fig:ground_truth}
 \end{figure}
